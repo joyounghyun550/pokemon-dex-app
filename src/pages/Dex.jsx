@@ -20,7 +20,7 @@ const Dex = () => {
     <RootDiv>
       <div className="app-container">
         {/* Dashboard 컴포넌트에 myPokemon 데이터를 전달하여 선택한 포켓몬 목록을 표시 */}
-        <Dashboard myPokemon={myPokemon} />
+        <Dashboard myPokemon={myPokemon} setMyPokemon={setMyPokemon} />
 
         {/* PokemonList 컴포넌트에 myPokemon과 setMyPokemon을 전달하여 포켓몬을 추가/삭제할 수 있도록 설정 */}
         <PokemonList myPokemon={myPokemon} setMyPokemon={setMyPokemon} />

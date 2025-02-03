@@ -5,12 +5,13 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 // Dashboard 컴포넌트 정의
-const Dashboard = ({ myPokemon }) => {
+const Dashboard = ({ myPokemon, setMyPokemon }) => {
   // 남은 포켓볼 슬롯을 렌더링하는 함수
   const renderPokeballs = () => {
     const pokeballCount = 6 - myPokemon.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 나머지 개수만큼 포켓볼을 추가
     const pokeballs = [];
 
+    // 남은 슬롯만큼 포켓볼 이미지를 배열에 추가
     for (let i = 0; i < pokeballCount; i++) {
       pokeballs.push(
         <div className="BallDiv" key={i}>
@@ -20,6 +21,19 @@ const Dashboard = ({ myPokemon }) => {
       );
     }
     return pokeballs; // 포켓볼 div 배열 반환
+  };
+
+  console.log("myPokemon", myPokemon); // myPokemon 배열을 콘솔에 출력
+
+  {
+    /* 포켓몬 삭제 기능 */
+  }
+  const removePokemon = (id) => {
+    // 선택한 포켓몬을 삭제한 후 상태 업데이트
+    const updateMyPokemon = myPokemon.filter((item) => {
+      return item.id !== id;
+    });
+    setMyPokemon(updateMyPokemon); // 상태 업데이트
   };
 
   return (
@@ -41,7 +55,7 @@ const Dashboard = ({ myPokemon }) => {
               <p className="pokemonNo">No. {"00" + item.id}</p>
             </div>
             {/* 포켓몬 삭제 버튼 */}
-            <button>삭제</button>
+            <button onClick={() => removePokemon(item.id)}>삭제</button>
           </div>
         ))}
 
@@ -149,6 +163,7 @@ Dashboard.propTypes = {
       korean_name: PropTypes.string.isRequired, // 포켓몬 이름 (문자열)
     })
   ).isRequired,
+  setMyPokemon: PropTypes.func.isRequired, // 포켓몬을 삭제하는 상태 업데이트 함수 (필수)
 };
 
 // Dashboard 컴포넌트를 내보냅니다.
