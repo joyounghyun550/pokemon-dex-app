@@ -5,33 +5,28 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <Body>
-      <StyRootDiv>
-        <div>
-          <img
-            src="/src/assets/pokemon-logo-RN0wntMB.png"
-            alt="Pokemon Logo"
-            className="logoImage"
-          ></img>
-          <button
-            onClick={() => {
-              navigate("/dex");
-            }}
-            className="statButton"
-          >
-            포켓몬 도감 시작하기
-          </button>
-        </div>
-      </StyRootDiv>
-    </Body>
+    <StyRootDiv>
+      <div>
+        <img
+          src="/src/assets/pokemon-logo-RN0wntMB.png"
+          alt="Pokemon Logo"
+          className="logoImage"
+        ></img>
+        <button
+          onClick={() => {
+            navigate("/dex");
+          }}
+          className="statButton"
+        >
+          포켓몬 도감 시작하기
+        </button>
+      </div>
+    </StyRootDiv>
   );
 };
 
 const StyRootDiv = styled.div`
-  max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
-  text-align: center;
 
   div {
     display: flex;
@@ -57,14 +52,6 @@ const StyRootDiv = styled.div`
       transition: background-color 0.3s;
     }
   }
-`;
-
-const Body = styled.body`
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 `;
 
 export default Home;
