@@ -1,4 +1,3 @@
-// styled-components의 createGlobalStyle을 가져옵니다.
 import { createGlobalStyle } from "styled-components";
 
 // 전역 스타일을 정의하는 GlobalStyle 컴포넌트를 생성합니다.
@@ -31,5 +30,4 @@ body {
 }
 `;
 
-// GlobalStyle을 내보냅니다.
 export default GlobalStyle;

@@ -1,22 +1,17 @@
-// react-router-dom에서 useNavigate 훅을 가져옵니다.
 import { useNavigate } from "react-router-dom";
-
-// styled-components를 가져옵니다.
 import styled from "styled-components";
 
-// Home 컴포넌트 정의
 const Home = () => {
   // useNavigate 훅을 사용하여 페이지 이동 기능을 가져옵니다.
   const navigate = useNavigate();
 
   return (
-    // 스타일이 적용된 div 컴포넌트를 렌더링합니다.
     <StyRootDiv>
       <div>
         {/* 포켓몬 로고 이미지 */}
         <img
           src="/src/assets/pokemon-logo-RN0wntMB.png"
-          alt="Pokemon Logo" // 접근성을 고려하여 alt 텍스트 추가
+          alt="Pokemon Logo"
           className="logoImage"
         />
 
@@ -34,7 +29,6 @@ const Home = () => {
   );
 };
 
-// 스타일이 적용된 컨테이너 div
 const StyRootDiv = styled.div`
   width: 100%;
 
@@ -64,5 +58,4 @@ const StyRootDiv = styled.div`
   }
 `;
 
-// Home 컴포넌트를 내보냅니다.
 export default Home;
