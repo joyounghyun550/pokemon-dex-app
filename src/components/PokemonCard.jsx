@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { PokemonContext } from "../context/PokemonContext";
 
-const PokemonCard = ({ pokemon, myPokemon, setMyPokemon }) => {
+const PokemonCard = () => {
   const navigate = useNavigate();
+  const { pokemonList, myPokemon, setMyPokemon } = useContext(PokemonContext);
 
   // 포켓몬 추가 함수
-  const addPokemon = () => {
+  const addPokemon = (pokemon) => {
     // 최대 6개까지만 선택 가능하도록 제한
     if (myPokemon.length > 5) {
       return alert("최대 6개의 포켓몬만 선택 할 수 있습니다.");
@@ -22,29 +24,41 @@ const PokemonCard = ({ pokemon, myPokemon, setMyPokemon }) => {
   };
 
   return (
-    <Card key={pokemon.id}>
-      <div
-        onClick={() => {
-          const queryParams = new URLSearchParams({
-            id: pokemon.id,
-            name: pokemon.korean_name,
-            img_url: pokemon.img_url,
-            description: pokemon.description,
-            type1: pokemon.types[0] || "",
-            type2: pokemon.types[1] || "",
-          });
+    <>
+      {pokemonList.map((pokemon) => {
+        return (
+          <Card key={pokemon.id}>
+            <div
+              onClick={() => {
+                const queryParams = new URLSearchParams({
+                  id: pokemon.id,
+                  name: pokemon.korean_name,
+                  img_url: pokemon.img_url,
+                  description: pokemon.description,
+                  type1: pokemon.types[0] || "",
+                  type2: pokemon.types[1] || "",
+                });
 
-          navigate(`/PokemonDetail?${queryParams.toString()}`);
-        }}
-      >
-        <img src={pokemon.img_url} alt={pokemon.korean_name} />
-        <div>
-          <p className="pokemonName">{pokemon.korean_name}</p>
-          <p className="pokemonNo">No. {"00" + pokemon.id}</p>
-        </div>
-      </div>
-      <button onClick={addPokemon}>추가</button>
-    </Card>
+                navigate(`/PokemonDetail?${queryParams.toString()}`);
+              }}
+            >
+              <img src={pokemon.img_url} alt={pokemon.korean_name} />
+              <div>
+                <p className="pokemonName">{pokemon.korean_name}</p>
+                <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                addPokemon(pokemon);
+              }}
+            >
+              추가
+            </button>
+          </Card>
+        );
+      })}
+    </>
   );
 };
 
@@ -91,24 +105,5 @@ const Card = styled.div`
     border-radius: 5px;
   }
 `;
-
-// PropTypes를 사용하여 PokemonCard 컴포넌트의 props 타입을 검증
-PokemonCard.propTypes = {
-  pokemon: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    img_url: PropTypes.string.isRequired,
-    korean_name: PropTypes.string.isRequired,
-    types: PropTypes.arrayOf(PropTypes.string).isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-  myPokemon: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      img_url: PropTypes.string.isRequired,
-      korean_name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  setMyPokemon: PropTypes.func.isRequired,
-};
 
 export default PokemonCard;
