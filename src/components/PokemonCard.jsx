@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const PokemonCard = ({ pokemon, myPokemon, setMyPokemon }) => {
+  const navigate = useNavigate();
+
   // 포켓몬 추가 함수
   const addPokemon = () => {
     // 최대 6개까지만 선택 가능하도록 제한
@@ -20,10 +23,25 @@ const PokemonCard = ({ pokemon, myPokemon, setMyPokemon }) => {
 
   return (
     <Card key={pokemon.id}>
-      <img src={pokemon.img_url} alt={pokemon.korean_name} />
-      <div>
-        <p className="pokemonName">{pokemon.korean_name}</p>
-        <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+      <div
+        onClick={() => {
+          const queryParams = new URLSearchParams({
+            id: pokemon.id,
+            name: pokemon.korean_name,
+            img_url: pokemon.img_url,
+            description: pokemon.description,
+            type1: pokemon.types[0] || "",
+            type2: pokemon.types[1] || "",
+          });
+
+          navigate(`/PokemonDetail?${queryParams.toString()}`);
+        }}
+      >
+        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <div>
+          <p className="pokemonName">{pokemon.korean_name}</p>
+          <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+        </div>
       </div>
       <button onClick={addPokemon}>추가</button>
     </Card>
@@ -80,6 +98,8 @@ PokemonCard.propTypes = {
     id: PropTypes.number.isRequired,
     img_url: PropTypes.string.isRequired,
     korean_name: PropTypes.string.isRequired,
+    types: PropTypes.arrayOf(PropTypes.string).isRequired,
+    description: PropTypes.string.isRequired,
   }).isRequired,
   myPokemon: PropTypes.arrayOf(
     PropTypes.shape({
