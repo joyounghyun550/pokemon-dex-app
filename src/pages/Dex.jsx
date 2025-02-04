@@ -2,21 +2,32 @@ import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
 import { useState } from "react";
+import { PokemonContext } from "../context/PokemonContext";
 
 const Dex = () => {
   // myPokemon: 사용자가 선택한 포켓몬 목록을 저장하는 배열, setMyPokemon: myPokemon 상태를 업데이트하는 함수
   const [myPokemon, setMyPokemon] = useState([]);
+  const [pokemonList, setPokemonList] = useState(null);
 
   return (
-    <RootDiv>
-      <div className="app-container">
-        {/* Dashboard 컴포넌트 */}
-        <Dashboard myPokemon={myPokemon} setMyPokemon={setMyPokemon} />
+    <PokemonContext.Provider
+      value={{
+        myPokemon,
+        setMyPokemon,
+        pokemonList,
+        setPokemonList,
+      }}
+    >
+      <RootDiv>
+        <div className="app-container">
+          {/* Dashboard 컴포넌트 */}
+          <Dashboard />
 
-        {/* PokemonList 컴포넌트 */}
-        <PokemonList myPokemon={myPokemon} setMyPokemon={setMyPokemon} />
-      </div>
-    </RootDiv>
+          {/* PokemonList 컴포넌트 */}
+          <PokemonList />
+        </div>
+      </RootDiv>
+    </PokemonContext.Provider>
   );
 };
 

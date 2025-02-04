@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import MOCK_DATA from "../data/mokadata";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
+import { PokemonContext } from "../context/PokemonContext";
 
-const PokemonList = ({ myPokemon, setMyPokemon }) => {
-  const [pokemonList, setPokemonList] = useState(null);
+const PokemonList = () => {
+  const { pokemonList, setPokemonList } = useContext(PokemonContext);
 
   useEffect(() => {
     setPokemonList(MOCK_DATA);
@@ -16,16 +16,7 @@ const PokemonList = ({ myPokemon, setMyPokemon }) => {
   return (
     <ListDiv>
       {/* pokemonList에 있는 모든 포켓몬을 PokemonCard 컴포넌트로 렌더링 */}
-      {pokemonList.map((pokemon) => {
-        return (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            myPokemon={myPokemon}
-            setMyPokemon={setMyPokemon}
-          />
-        );
-      })}
+      <PokemonCard />
     </ListDiv>
   );
 };
@@ -42,11 +33,5 @@ const ListDiv = styled.div`
   border: 1px solid rgb(221, 221, 221); // 테두리 설정
   border-radius: 10px; // 모서리를 둥글게 설정
 `;
-
-// PropTypes를 사용하여 PokemonList 컴포넌트의 props 타입을 검증
-PokemonList.propTypes = {
-  myPokemon: PropTypes.array.isRequired,
-  setMyPokemon: PropTypes.func.isRequired,
-};
 
 export default PokemonList;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import { useContext } from "react";
+import { PokemonContext } from "../context/PokemonContext";
 
-const Dashboard = ({ myPokemon, setMyPokemon }) => {
+const Dashboard = () => {
+  const { myPokemon, setMyPokemon } = useContext(PokemonContext);
   // 남은 포켓볼 슬롯을 렌더링하는 함수
   const renderPokeballs = () => {
     const pokeballCount = 6 - myPokemon.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 나머지 개수만큼 포켓볼을 추가
@@ -134,17 +136,5 @@ const StDiv = styled.div`
     }
   }
 `;
-
-// PropTypes를 사용하여 Dashboard 컴포넌트의 props 타입을 검증
-Dashboard.propTypes = {
-  myPokemon: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      img_url: PropTypes.string.isRequired,
-      korean_name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  setMyPokemon: PropTypes.func.isRequired,
-};
 
 export default Dashboard;
