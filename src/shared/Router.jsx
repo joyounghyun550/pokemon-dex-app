@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // 애플리케이션에서 사용할 페이지 컴포넌트를 가져옵니다.
 import Dex from "../pages/Dex";
 import Home from "../pages/Home";
+import PokemonDetail from "../components/PokemonDetail";
 
 // 라우터를 정의하는 컴포넌트입니다.
 const Router = () => {
@@ -14,9 +15,9 @@ const Router = () => {
       <Routes>
         {/* "/" 경로에 접근하면 Home 컴포넌트를 렌더링합니다. */}
         <Route path="/" element={<Home />} />
-
         {/* "/dex" 경로에 접근하면 Dex 컴포넌트를 렌더링합니다. */}
         <Route path="/dex" element={<Dex />} />
+        <Route path="/PokemonDetail" element={<PokemonDetail />} />
       </Routes>
     </BrowserRouter>
   );
