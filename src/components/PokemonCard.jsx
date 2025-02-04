@@ -1,27 +1,14 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { PokemonContext } from "../context/PokemonContext";
+import { useDispatch } from "react-redux";
+import { addPokemon } from "../redux/slices/pokemonSlice";
 
 const PokemonCard = () => {
   const navigate = useNavigate();
-  const { pokemonList, myPokemon, setMyPokemon } = useContext(PokemonContext);
-
-  // 포켓몬 추가 함수
-  const addPokemon = (pokemon) => {
-    // 최대 6개까지만 선택 가능하도록 제한
-    if (myPokemon.length > 5) {
-      return alert("최대 6개의 포켓몬만 선택 할 수 있습니다.");
-    }
-
-    // 이미 선택된 포켓몬인지 확인
-    if (myPokemon.some((item) => item.id === pokemon.id)) {
-      alert("해당 포켓몬이 이미 존재합니다.");
-    } else {
-      // 선택되지 않은 포켓몬이면 myPokemon 배열에 추가
-      setMyPokemon([...myPokemon, pokemon]);
-    }
-  };
+  const dispatch = useDispatch();
+  const { pokemonList } = useContext(PokemonContext);
 
   return (
     <>
@@ -32,7 +19,7 @@ const PokemonCard = () => {
               onClick={() => {
                 const queryParams = new URLSearchParams({
                   id: pokemon.id,
-                  name: pokemon.korean_name,
+                  korean_name: pokemon.korean_name,
                   img_url: pokemon.img_url,
                   description: pokemon.description,
                   type1: pokemon.types[0] || "",
@@ -50,7 +37,7 @@ const PokemonCard = () => {
             </div>
             <button
               onClick={() => {
-                addPokemon(pokemon);
+                dispatch(addPokemon(pokemon));
               }}
             >
               추가
@@ -106,4 +93,4 @@ const Card = styled.div`
   }
 `;
 
-export default PokemonCard;
+export default memo(PokemonCard);

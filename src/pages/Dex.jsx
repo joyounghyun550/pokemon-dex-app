@@ -6,14 +6,11 @@ import { PokemonContext } from "../context/PokemonContext";
 
 const Dex = () => {
   // myPokemon: 사용자가 선택한 포켓몬 목록을 저장하는 배열, setMyPokemon: myPokemon 상태를 업데이트하는 함수
-  const [myPokemon, setMyPokemon] = useState([]);
   const [pokemonList, setPokemonList] = useState(null);
 
   return (
     <PokemonContext.Provider
       value={{
-        myPokemon,
-        setMyPokemon,
         pokemonList,
         setPokemonList,
       }}

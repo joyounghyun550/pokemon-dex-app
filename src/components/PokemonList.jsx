@@ -9,7 +9,7 @@ const PokemonList = () => {
 
   useEffect(() => {
     setPokemonList(MOCK_DATA);
-  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+  }, [setPokemonList]); // 컴포넌트가 마운트될 때 한 번만 실행
 
   if (!pokemonList) return <p>Loading...</p>; // 데이터 로딩 중 표시
 

@@ -1,38 +1,58 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { addPokemon } from "../redux/slices/pokemonSlice";
 
 const PokemonDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const img_url = queryParams.get("img_url");
-  const name = queryParams.get("name");
-  const type1 = queryParams.get("type1");
-  const type2 = queryParams.get("type2");
-  const description = queryParams.get("description");
+  const pokemonInfo = {
+    id: +queryParams.get("id"),
+    img_url: queryParams.get("img_url"),
+    korean_name: queryParams.get("korean_name"),
+    type1: queryParams.get("type1"),
+    type2: queryParams.get("type2"),
+    description: queryParams.get("description"),
+  };
+  const dispatch = useDispatch();
+  const counterReducer = useSelector((state) => {
+    return state.pokemon.myPokemon;
+  });
+
+  console.log("counterReducer : ", counterReducer);
 
   return (
     <DetailBox>
       <div>
-        <img src={img_url} alt={name} />
-        <h2>{name}</h2>
+        <img src={pokemonInfo.img_url} alt={pokemonInfo.korean_name} />
+        <h2>{pokemonInfo.korean_name}</h2>
         <p className="pokemonType">
-          {type1 && type2
-            ? `특성 : ${type1}, ${type2}`
-            : type1
-            ? `특성 : ${type1}`
-            : type2
-            ? `특성 : ${type2}`
+          {pokemonInfo.ype1 && pokemonInfo.type2
+            ? `특성 : ${pokemonInfo.type1}, ${pokemonInfo.type2}`
+            : pokemonInfo.type1
+            ? `특성 : ${pokemonInfo.type1}`
+            : pokemonInfo.type2
+            ? `특성 : ${pokemonInfo.type2}`
             : "타입 정보 없음"}
         </p>
-        <p className="pokemonDp">설명 : {description}</p>
-        <button
-          onClick={() => {
-            navigate("/dex");
-          }}
-        >
-          뒤로가기
-        </button>
+        <p className="pokemonDp">설명 : {pokemonInfo.description}</p>
+        <div>
+          <button
+            onClick={() => {
+              dispatch(addPokemon(pokemonInfo));
+            }}
+          >
+            추가하기
+          </button>
+          <button
+            onClick={() => {
+              navigate("/dex");
+            }}
+          >
+            뒤로가기
+          </button>
+        </div>
       </div>
     </DetailBox>
   );
@@ -46,6 +66,12 @@ const DetailBox = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 20px;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
   }
 
   img {
