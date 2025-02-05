@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 export const StyRootDiv = styled.div`
   width: 100%;
@@ -31,6 +33,7 @@ export const StyRootDiv = styled.div`
 
 export const RootDiv = styled.div`
   width: 100%;
+  height: 100vh;
 
   .app-container {
     display: flex; // flexbox를 사용하여 요소 배치
@@ -47,11 +50,6 @@ export const StDiv = styled.div`
   background-color: rgb(248, 248, 248);
   margin-bottom: 20px;
   border-radius: 10px;
-
-  h2 {
-    margin-bottom: 20px;
-    color: rgb(255, 0, 0);
-  }
 
   #pokemon-dash-list {
     display: grid;
@@ -177,6 +175,11 @@ export const Card = styled.div`
     color: rgb(255, 255, 255);
     border-radius: 5px;
   }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 12px; // 마우스 오버 시 그림자 강화
+  }
 `;
 
 export const DetailBox = styled.div`
@@ -224,4 +227,91 @@ export const DetailBox = styled.div`
     cursor: pointer;
     transition: border-color 0.25s;
   }
+`;
+
+export const SearchDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background: linear-gradient(
+    145deg,
+    #f0f0f0,
+    #dcdcdc
+  ); /* 부드러운 그라데이션 배경 */
+  margin-bottom: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  transition: all 0.3s ease;
+`;
+
+export const StyledButton = styled(Button)`
+  background-color: darkred !important;
+  color: white !important;
+  font-weight: bold !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s, transform 0.2s !important;
+  margin: 20px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+
+  &:hover {
+    background-color: red !important;
+    transform: scale(1.05) !important;
+  }
+
+  &:active {
+    transform: scale(0.95) !important;
+  }
+`;
+
+export const StyledTextField = styled(TextField)`
+  width: 300px;
+  margin: 20px;
+  width: 50%;
+  height: 20%;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 10px;
+
+  & .MuiOutlinedInput-root {
+    font-size: 16px;
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  & .MuiOutlinedInput-notchedOutline {
+    border-color: red;
+  }
+
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: darkred;
+  }
+
+  & .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: crimson;
+  }
+`;
+
+export const PokemonSearchTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+`;
+
+export const InputWrapper = styled.div`
+  width: 100%;
+  height: 50px;
+  background-image: url("https://example.com/background-image.jpg"); /* 배경 이미지 URL */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -1,16 +1,35 @@
 import MOCK_DATA from "../data/mokadata";
 import PokemonCard from "./PokemonCard";
 import { ListDiv } from "../styles/StyledComponents";
+import { useSelector } from "react-redux";
 
 const PokemonList = () => {
+  const { searchTerm } = useSelector((state) => state.search);
+  const { showAllPokemon } = useSelector((state) => state.pokemonView);
+  const counterReducer = useSelector((state) => state.pokemon.myPokemon);
+
+  // 필터링된 포켓몬 목록을 가져오는 함수
+  const getPokemonsToRender = () => {
+    const pokemons = showAllPokemon ? MOCK_DATA : counterReducer; // 모든 포켓몬 보기 vs 나의 포켓몬 보기
+    if (searchTerm === "") {
+      return pokemons; // 검색어가 없으면 모든 포켓몬을 반환
+    }
+    return pokemons.filter(
+      (pokemon) =>
+        pokemon.korean_name.toLowerCase().includes(searchTerm.toLowerCase()) // 검색어에 맞는 포켓몬 필터링
+    );
+  };
+
+  const filteredPokemons = getPokemonsToRender();
+
   return (
-    <ListDiv>
-      {/* MOCK_DATA 배열에 있는 모든 포켓몬 데이터를 PokemonCard 컴포넌트로 렌더링 */}
-      {MOCK_DATA.map((pokemon) => {
-        // 각 포켓몬마다 PokemonCard 컴포넌트를 생성하고 pokemon 데이터를 전달
-        return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
-      })}
-    </ListDiv>
+    <div>
+      <ListDiv>
+        {filteredPokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </ListDiv>
+    </div>
   );
 };
 

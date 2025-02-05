@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addPokemon } from "../redux/slices/pokemonSlice";
-import { Card } from "../styles/StyledComponents";
+import { Card, StyledButton } from "../styles/StyledComponents";
 import PropTypes from "prop-types";
 
 const PokemonCard = ({ pokemon }) => {
@@ -38,14 +38,14 @@ const PokemonCard = ({ pokemon }) => {
         </div>
 
         {/* 포켓몬을 내 목록에 추가하는 버튼 */}
-        <button
+        <StyledButton
           onClick={() => {
             // 리덕스를 사용하여 포켓몬 추가
             dispatch(addPokemon(pokemon));
           }}
         >
           추가
-        </button>
+        </StyledButton>
       </Card>
     </>
   );

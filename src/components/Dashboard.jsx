@@ -2,10 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { removePokemon } from "../redux/slices/pokemonSlice";
 import Swal from "sweetalert2";
 import { StDiv } from "../styles/StyledComponents";
+import MOCK_DATA from "../data/mokadata";
 
 const Dashboard = () => {
   // 리덕스에서 상태를 업데이트하거나 가져오기 위한 dispatch와 selector 사용
   const dispatch = useDispatch();
+
+  const { searchTerm } = useSelector((state) => state.search);
+  const { showAllPokemon } = useSelector((state) => state.pokemonView);
 
   // 현재 보유한 포켓몬 목록을 리덕스 스토어에서 가져오기
   const counterReducer = useSelector((state) => {
@@ -14,19 +18,21 @@ const Dashboard = () => {
 
   // 남은 포켓볼 슬롯을 렌더링하는 함수
   const renderPokeballs = () => {
-    const pokeballCount = 6 - counterReducer.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 남은 슬롯만큼 포켓볼을 추가
-    const pokeballs = [];
+    if (searchTerm === "") {
+      const pokeballCount = 6 - counterReducer.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 남은 슬롯만큼 포켓볼을 추가
+      const pokeballs = [];
 
-    // 남은 슬롯만큼 포켓볼 이미지를 배열에 추가
-    for (let i = 0; i < pokeballCount; i++) {
-      pokeballs.push(
-        <div className="BallDiv" key={i}>
-          {/* 포켓볼 이미지 출력 */}
-          <img src="/src/assets/pokeball-13iwdk7Y.png" alt="포켓볼" />
-        </div>
-      );
+      // 남은 슬롯만큼 포켓볼 이미지를 배열에 추가
+      for (let i = 0; i < pokeballCount; i++) {
+        pokeballs.push(
+          <div className="BallDiv" key={i}>
+            {/* 포켓볼 이미지 출력 */}
+            <img src="/src/assets/pokeball-13iwdk7Y.png" alt="포켓볼" />
+          </div>
+        );
+      }
+      return pokeballs; // 생성된 포켓볼 div 배열을 반환
     }
-    return pokeballs; // 생성된 포켓볼 div 배열을 반환
   };
 
   // 포켓몬을 풀어주는 함수 (삭제 요청)
@@ -52,13 +58,26 @@ const Dashboard = () => {
     });
   };
 
+  // 필터링된 포켓몬 목록을 가져오는 함수
+  const getPokemonsToRender = () => {
+    const pokemons = showAllPokemon ? MOCK_DATA : counterReducer; // 모든 포켓몬 보기 vs 나의 포켓몬 보기
+    if (searchTerm === "") {
+      return pokemons; // 검색어가 없으면 모든 포켓몬을 반환
+    }
+    return pokemons.filter(
+      (pokemon) =>
+        pokemon.korean_name.toLowerCase().includes(searchTerm.toLowerCase()) // 검색어에 맞는 포켓몬 필터링
+    );
+  };
+
+  const filteredPokemons = getPokemonsToRender();
+
   return (
     <StDiv>
-      <h2>나만의 포켓몬</h2>
       {/* 보유한 포켓몬 목록을 렌더링 */}
       <div id="pokemon-dash-list">
         {/* myPokemon 배열을 순회하며 각 포켓몬을 표시 */}
-        {counterReducer.map((item) => (
+        {filteredPokemons.map((item) => (
           <div className="MypokemonDiv" key={item.id}>
             <img src={item.img_url} alt={item.korean_name} />
             <div>
