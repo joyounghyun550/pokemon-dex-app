@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { addPokemon, removePokemon } from "../redux/slices/pokemonSlice";
 import Swal from "sweetalert2";
+import { DetailBox } from "../styles/StyledComponents";
 
 const PokemonDetail = () => {
   const navigate = useNavigate();
@@ -90,52 +90,5 @@ const PokemonDetail = () => {
     </DetailBox>
   );
 };
-
-const DetailBox = styled.div`
-  width: 100%;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-
-    div {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-    }
-  }
-
-  img {
-    width: 200px;
-    height: 200px;
-  }
-
-  h2 {
-    margin: 20px 0px;
-    color: rgb(255, 0, 0);
-  }
-
-  p {
-    color: black;
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
-`;
 
 export default PokemonDetail;

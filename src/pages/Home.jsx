@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import { StyRootDiv } from "../styles/StyledComponents";
 
 const Home = () => {
   // useNavigate 훅을 사용하여 페이지 이동 기능을 가져옵니다.
@@ -28,34 +28,5 @@ const Home = () => {
     </StyRootDiv>
   );
 };
-
-const StyRootDiv = styled.div`
-  width: 100%;
-
-  div {
-    display: flex; // 요소들을 flexbox로 배치
-    flex-direction: column; // 세로 정렬
-    align-items: center; // 수직 중앙 정렬
-    justify-content: center; // 수평 중앙 정렬
-    width: 100%;
-    height: 100vh; // 화면 전체 높이 차지
-
-    img {
-      width: 600px; // 로고 크기 설정
-      margin-bottom: 20px; // 버튼과 간격 조정
-    }
-
-    button {
-      padding: 10px 20px; // 버튼 크기 조정
-      font-size: 18px; // 글자 크기 설정
-      cursor: pointer; // 마우스 오버 시 포인터 변경
-      border-radius: 5px; // 버튼 모서리 둥글게
-      background-color: rgb(255, 0, 0); // 버튼 배경색 (빨간색)
-      color: white; // 버튼 글자색 (흰색)
-      border: none; // 테두리 제거
-      transition: background-color 0.3s; // 배경색 변경 시 부드럽게 전환
-    }
-  }
-`;
 
 export default Home;

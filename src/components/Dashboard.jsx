@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { removePokemon } from "../redux/slices/pokemonSlice";
 import Swal from "sweetalert2";
+import { StDiv } from "../styles/StyledComponents";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -75,88 +75,5 @@ const Dashboard = () => {
     </StDiv>
   );
 };
-
-const StDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: rgb(248, 248, 248);
-  margin-bottom: 20px;
-  border-radius: 10px;
-
-  h2 {
-    margin-bottom: 20px;
-    color: rgb(255, 0, 0);
-  }
-
-  #pokemon-dash-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
-    justify-items: center;
-
-    .MypokemonDiv {
-      border: 1px solid rgb(221, 221, 221);
-      background-color: rgb(255, 255, 255);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-      text-align: center;
-      padding: 10px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
-
-      div {
-        margin-top: 10px;
-      }
-
-      .pokemonName {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0px;
-        color: black;
-      }
-
-      .pokemonNo {
-        font-size: 12px;
-        color: rgb(102, 102, 102);
-      }
-
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        border: none;
-        background-color: rgb(255, 0, 0);
-        color: rgb(255, 255, 255);
-        border-radius: 5px;
-      }
-    }
-  }
-
-  .BallDiv {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(255, 255, 255);
-    border: 2px dashed rgb(204, 204, 204);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-
-    img {
-      width: 50px;
-      height: 50px;
-    }
-  }
-`;
 
 export default Dashboard;
