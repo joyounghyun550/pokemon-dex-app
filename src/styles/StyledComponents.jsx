@@ -127,7 +127,7 @@ export const ListDiv = styled.div`
     minmax(150px, 1fr)
   ); // 자동으로 열을 채우도록 설정
   gap: 20px; // 카드 간격 설정
-  background-color: rgb(240, 240, 240); // 배경색 설정
+  background-color: #b0e0b1; /* Pale Green */
   padding: 20px; // 내부 여백 설정
   border: 1px solid rgb(221, 221, 221); // 테두리 설정
   border-radius: 10px; // 모서리를 둥글게 설정
@@ -135,7 +135,7 @@ export const ListDiv = styled.div`
 
 export const Card = styled.div`
   border: 1px solid rgb(221, 221, 221);
-  background-color: rgb(255, 255, 255);
+  background-color: #f5f5f5;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
@@ -234,11 +234,7 @@ export const SearchDiv = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 30px;
-  background: linear-gradient(
-    145deg,
-    #f0f0f0,
-    #dcdcdc
-  ); /* 부드러운 그라데이션 배경 */
+  background-color: #b0e0b1; /* Pale Green */
   margin-bottom: 30px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
@@ -246,7 +242,7 @@ export const SearchDiv = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  background-color: darkred !important;
+  background-color: #4b8a8c !important;
   color: white !important;
   font-weight: bold !important;
   padding: 5px 10px !important;
@@ -256,7 +252,7 @@ export const StyledButton = styled(Button)`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
 
   &:hover {
-    background-color: red !important;
+    background-color: #025336 !important;
     transform: scale(1.05) !important;
   }
 
