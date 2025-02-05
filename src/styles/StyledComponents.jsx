@@ -47,7 +47,7 @@ export const StDiv = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: rgb(248, 248, 248);
+  background-color: #b0e0b1;
   margin-bottom: 20px;
   border-radius: 10px;
 
@@ -275,18 +275,6 @@ export const StyledTextField = styled(TextField)`
     font-size: 16px;
     background-color: white;
     border-radius: 8px;
-  }
-
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: red;
-  }
-
-  &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: darkred;
-  }
-
-  & .Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: crimson;
   }
 `;
 

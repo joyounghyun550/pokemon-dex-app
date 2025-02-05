@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { removePokemon } from "../redux/slices/pokemonSlice";
 import Swal from "sweetalert2";
-import { StDiv } from "../styles/StyledComponents";
+import { StDiv, StyledButton } from "../styles/StyledComponents";
 import MOCK_DATA from "../data/mokadata";
 
 const Dashboard = () => {
@@ -85,13 +85,13 @@ const Dashboard = () => {
               <p className="pokemonNo">No. {"00" + item.id}</p>
             </div>
             {/* 각 포켓몬마다 삭제 버튼을 눌러 포켓몬을 삭제할 수 있음 */}
-            <button
+            <StyledButton
               onClick={() => {
                 handleRemovePokemon(item.id);
               }}
             >
               삭제
-            </button>
+            </StyledButton>
           </div>
         ))}
 
