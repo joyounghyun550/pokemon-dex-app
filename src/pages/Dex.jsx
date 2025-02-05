@@ -1,6 +1,5 @@
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
-import React from "react";
 import { RootDiv } from "../styles/StyledComponents";
 
 const Dex = () => {
@@ -17,4 +16,4 @@ const Dex = () => {
   );
 };
 
-export default React.memo(Dex);
+export default Dex;
