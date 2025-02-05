@@ -80,7 +80,7 @@ const PokemonDetail = () => {
           )}
           <button
             onClick={() => {
-              navigate("/dex");
+              navigate(-1);
             }}
           >
             뒤로가기
