@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
+import localStorageUtil, { STORAGE_KEYS } from "../../util/localStorageUtil";
 // import { localStorageUtil, STORAGE_KEYS } from "../../util/localStorageUtil";
 // 초기 상태
 const initialState = {
   pokemonList: [], // 전체 포켓몬 리스트
-  myPokemon: [], // 사용자가 잡은 포켓몬
+  myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 잡은 포켓몬
 };
 
 // 슬라이스 생성
@@ -36,6 +37,7 @@ const pokemonSlice = createSlice({
         return;
       }
       state.myPokemon.push(action.payload);
+      localStorageUtil.set(STORAGE_KEYS.MYPOKEMON, state.myPokemon);
       Swal.fire({
         icon: "success",
         title: `${action.payload.korean_name}`,
@@ -47,6 +49,7 @@ const pokemonSlice = createSlice({
       state.myPokemon = state.myPokemon.filter(
         (pokemon) => pokemon.id !== action.payload
       );
+      localStorageUtil.remove(STORAGE_KEYS.MYPOKEMON, action.payload);
     },
   },
 });
