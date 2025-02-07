@@ -27,6 +27,11 @@ export const StyRootDiv = styled.div`
       color: white; // 버튼 글자색 (흰색)
       border: none; // 테두리 제거
       transition: background-color 0.3s; // 배경색 변경 시 부드럽게 전환
+
+      .DexLink {
+        color: white;
+        text-decoration: none;
+      }
     }
   }
 `;
@@ -104,18 +109,21 @@ export const StDiv = styled.div`
   }
 
   .BallDiv {
-    width: 100px;
-    height: 100px;
+    border: 1px solid rgb(221, 221, 221);
     background-color: rgb(255, 255, 255);
-    border: 2px dashed rgb(204, 204, 204);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 10px;
 
     img {
-      width: 50px;
-      height: 50px;
+      width: 100px;
+      height: 100px;
     }
   }
 `;

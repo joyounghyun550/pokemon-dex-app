@@ -27,7 +27,7 @@ const Dashboard = () => {
         pokeballs.push(
           <div className="BallDiv" key={i}>
             {/* 포켓볼 이미지 출력 */}
-            <img src="/src/assets/pokeball-13iwdk7Y.png" alt="포켓볼" />
+            <img src="src/assets/image/pokeball-13iwdk7Y.png" alt="포켓볼" />
           </div>
         );
       }

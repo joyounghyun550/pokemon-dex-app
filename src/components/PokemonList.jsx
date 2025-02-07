@@ -1,6 +1,6 @@
 import MOCK_DATA from "../data/mokadata";
-import PokemonCard from "./PokemonCard";
 import { ListDiv } from "../styles/StyledComponents";
+import PokemonCard from "./PokemonCard";
 import { useSelector } from "react-redux";
 
 const PokemonList = () => {

@@ -4,10 +4,12 @@ import { addPokemon, removePokemon } from "../redux/slices/pokemonSlice";
 import Swal from "sweetalert2";
 import { DetailBox } from "../styles/StyledComponents";
 
-const PokemonDetail = () => {
+const Detail = () => {
   // 페이지 이동을 위한 navigate와 URL 쿼리 파라미터를 가져오기 위한 location 사용
   const navigate = useNavigate();
   const location = useLocation();
+
+  console.log(location);
 
   // URL의 쿼리 파라미터에서 포켓몬 정보를 추출
   const queryParams = new URLSearchParams(location.search);
@@ -109,4 +111,4 @@ const PokemonDetail = () => {
   );
 };
 
-export default PokemonDetail;
+export default Detail;

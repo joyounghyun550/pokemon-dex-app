@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addPokemon } from "../redux/slices/pokemonSlice";
-import { Card, StyledButton } from "../styles/StyledComponents";
 import PropTypes from "prop-types";
+import { Card, StyledButton } from "../styles/StyledComponents";
 
 const PokemonCard = ({ pokemon }) => {
   // navigate는 React Router에서 페이지 이동을 위해 사용
@@ -26,7 +26,7 @@ const PokemonCard = ({ pokemon }) => {
             });
 
             // 생성된 쿼리 파라미터와 함께 상세 페이지로 이동
-            navigate(`/PokemonDetail?${queryParams.toString()}`);
+            navigate(`/Detail?${queryParams.toString()}`);
           }}
         >
           {/* 포켓몬 이미지와 이름, 번호를 출력 */}

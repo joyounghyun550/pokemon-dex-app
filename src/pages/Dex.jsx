@@ -12,10 +12,6 @@ const Dex = () => {
       <div className="app-container">
         <PokemonSearch />
         <>{showAllPokemon ? <PokemonList /> : <Dashboard />}</>
-        {/* Dashboard 컴포넌트 */}
-        {/* <Dashboard /> */}
-        {/* PokemonList 컴포넌트 */}
-        {/* <PokemonList /> */}
       </div>
     </RootDiv>
   );

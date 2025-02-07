@@ -3,12 +3,7 @@ import { setSearchTerm } from "../redux/slices/searchSlice";
 import { togglePokemonView } from "../redux/slices/pokemonViewSlice";
 import { debounce } from "../util/debounce"; // 수정된 debounce 함수 가져오기
 import { useEffect, useState } from "react";
-import {
-  PokemonSearchTitle,
-  SearchDiv,
-  StyledButton,
-  StyledTextField,
-} from "../styles/StyledComponents";
+import { PokemonSearchTitle, SearchDiv, StyledButton, StyledTextField } from "../styles/StyledComponents";
 
 const PokemonSearch = () => {
   const dispatch = useDispatch();
