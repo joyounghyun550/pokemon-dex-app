@@ -5,13 +5,17 @@ import PokemonSearch from "../components/PokemonSearch";
 import { RootDiv } from "../styles/StyledComponents";
 
 const Dex = () => {
-  const { showAllPokemon } = useSelector((state) => state.pokemonView);
+  // Redux 상태에서 showAllPokemon 값을 가져옴
+  const { showAllPokemon } = useSelector((state) => state.toggle);
 
   return (
     <RootDiv>
       <div className="app-container">
+        {/* 포켓몬 검색창 렌더링 */}
         <PokemonSearch />
-        <>{showAllPokemon ? <PokemonList /> : <Dashboard />}</>
+
+        {/* showAllPokemon 값에 따라 포켓몬 리스트 또는 대시보드 렌더링 */}
+        {showAllPokemon ? <PokemonList /> : <Dashboard />}
       </div>
     </RootDiv>
   );

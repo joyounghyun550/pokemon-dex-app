@@ -28,6 +28,10 @@ body {
     min-width: 320px;
     min-height: 100vh; // 최소 높이 설정 (화면 전체 채우기)
 }
+
+a {
+  text-decoration: none;
+}
 `;
 
 export default GlobalStyle;

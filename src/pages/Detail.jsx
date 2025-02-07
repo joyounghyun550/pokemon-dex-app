@@ -1,110 +1,81 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { addPokemon, removePokemon } from "../redux/slices/pokemonSlice";
-import Swal from "sweetalert2";
+import { Link, useSearchParams } from "react-router-dom";
 import { DetailBox } from "../styles/StyledComponents";
+import MOCK_DATA from "../data/mokadata";
+import useHandleRemovePokemon from "../hooks/useRemoveToggle";
+import useAlert from "../hooks/useAlert";
 
 const Detail = () => {
-  // 페이지 이동을 위한 navigate와 URL 쿼리 파라미터를 가져오기 위한 location 사용
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  console.log(location);
-
-  // URL의 쿼리 파라미터에서 포켓몬 정보를 추출
-  const queryParams = new URLSearchParams(location.search);
-  const pokemonInfo = {
-    id: +queryParams.get("id"), // 숫자로 변환하여 id 저장
-    img_url: queryParams.get("img_url"),
-    korean_name: queryParams.get("korean_name"),
-    type1: queryParams.get("type1"),
-    type2: queryParams.get("type2"),
-    description: queryParams.get("description"),
-  };
-
-  // 리덕스를 통해 포켓몬 목록을 가져오기 위한 dispatch와 selector 사용
+  // Redux 상태 관리
   const dispatch = useDispatch();
-  const counterReducer = useSelector((state) => {
-    return state.pokemon.myPokemon;
-  });
+  const myPokemonList = useSelector((state) => state.pokemon.myPokemon);
 
-  // 포켓몬을 삭제하는 함수
-  const handleRemovePokemon = (pokemonId) => {
-    // 삭제 전에 경고창을 띄워서 사용자가 신중하게 선택하도록 유도
-    Swal.fire({
-      title: "정말로 포켓몬을 풀어주시겠습니까?",
-      text: "다시 되돌릴 수 없습니다. 신중하세요.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "승인",
-      cancelButtonText: "취소",
-      reverseButtons: true, // 버튼 순서 거꾸로 설정
-    }).then((result) => {
-      // 사용자가 '승인' 버튼을 클릭하면 포켓몬을 삭제
-      if (result.isConfirmed) {
-        Swal.fire("승인이 완료되었습니다.", "화끈하시네요~!", "success");
-        // 리덕스를 통해 상태 업데이트 (포켓몬 삭제)
-        dispatch(removePokemon(pokemonId));
-      }
-    });
+  // URL에서 포켓몬 ID 가져오기
+  const [query] = useSearchParams();
+  const detailPokemonId = +query.get("id");
+
+  // 선택한 포켓몬 데이터 찾기
+  const selectPokemon = MOCK_DATA.find(
+    (pokemon) => pokemon.id === detailPokemonId
+  );
+
+  // 포켓몬 삭제 및 알림 훅 가져오기
+  const handleRemovePokemon = useHandleRemovePokemon();
+  const { addShowAlert } = useAlert();
+
+  // 포켓몬 추가 버튼 핸들러
+  const addBtnHandler = (pokemon) => {
+    addShowAlert(pokemon, myPokemonList, dispatch);
   };
+
+  // 포켓몬이 존재하지 않을 경우 예외 처리
+  if (!selectPokemon) {
+    return <div>포켓몬을 찾을 수 없습니다.</div>;
+  }
+
+  // 현재 포켓몬이 내 목록에 있는지 확인
+  const isPokemonInMyList = myPokemonList.some(
+    (myPokemon) => myPokemon.id === selectPokemon.id
+  );
 
   return (
     <DetailBox>
       <div>
-        {/* 포켓몬의 이미지와 이름을 표시 */}
-        <img src={pokemonInfo.img_url} alt={pokemonInfo.korean_name} />
-        <h2>{pokemonInfo.korean_name}</h2>
+        {/* 포켓몬 이미지 및 이름 표시 */}
+        <img src={selectPokemon.img_url} alt={selectPokemon.korean_name} />
+        <h2>{selectPokemon.korean_name}</h2>
 
-        {/* 포켓몬 타입 정보가 있을 경우 보여주기, 없으면 '타입 정보 없음' 출력 */}
+        {/* 포켓몬 특성 정보 표시 (없을 경우 '타입 정보 없음' 출력) */}
         <p className="pokemonType">
-          {pokemonInfo.type1 && pokemonInfo.type2
-            ? `특성 : ${pokemonInfo.type1}, ${pokemonInfo.type2}`
-            : pokemonInfo.type1
-            ? `특성 : ${pokemonInfo.type1}`
-            : pokemonInfo.type2
-            ? `특성 : ${pokemonInfo.type2}`
+          {selectPokemon.type1 && selectPokemon.type2
+            ? `특성 : ${selectPokemon.type1}, ${selectPokemon.type2}`
+            : selectPokemon.type1
+            ? `특성 : ${selectPokemon.type1}`
+            : selectPokemon.type2
+            ? `특성 : ${selectPokemon.type2}`
             : "타입 정보 없음"}
         </p>
 
-        {/* 포켓몬 설명 출력 */}
-        <p className="pokemonDp">설명 : {pokemonInfo.description}</p>
+        {/* 포켓몬 설명 표시 */}
+        <p className="pokemonDp">설명 : {selectPokemon.description}</p>
 
         <div>
-          {/* 포켓몬이 이미 내 포켓몬 목록에 있으면 삭제 버튼, 아니면 추가 버튼 */}
-          {counterReducer.some(
-            (myPokemon) => myPokemon.id === pokemonInfo.id
-          ) ? (
-            <button
-              className="detail-add-btn"
-              onClick={() => {
-                handleRemovePokemon(pokemonInfo.id);
-              }}
-            >
-              삭제하기
-            </button>
-          ) : (
-            <button
-              className="detail-add-btn"
-              onClick={() => {
-                // 포켓몬을 내 목록에 추가
-                dispatch(addPokemon(pokemonInfo));
-              }}
-            >
-              추가하기
-            </button>
-          )}
-
-          {/* 뒤로가기 버튼, 이전 페이지로 돌아가기 */}
+          {/* 추가/삭제 버튼 (포켓몬이 내 목록에 있으면 삭제, 없으면 추가) */}
           <button
+            className="detail-add-btn"
             onClick={() => {
-              navigate(-1); // 한 단계 뒤로 가기
+              isPokemonInMyList
+                ? handleRemovePokemon(selectPokemon.id)
+                : addBtnHandler(selectPokemon);
             }}
           >
-            뒤로가기
+            {isPokemonInMyList ? "삭제하기" : "추가하기"}
           </button>
+
+          {/* 뒤로가기 버튼 */}
+          <Link to={"/dex"}>
+            <button>뒤로가기</button>
+          </Link>
         </div>
       </div>
     </DetailBox>

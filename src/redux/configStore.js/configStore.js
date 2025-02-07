@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pokemonSlice from "../slices/pokemonSlice";
 import searchSlice from "../slices/searchSlice";
-import pokemonViewReducer from "../slices/pokemonViewSlice";
+import toggleSlice from "../slices/toggleSlice";
 
-// store 생성
+// Redux 스토어 생성 및 설정
 const store = configureStore({
   reducer: {
-    pokemon: pokemonSlice,
-    search: searchSlice,
-    pokemonView: pokemonViewReducer,
+    pokemon: pokemonSlice, // 포켓몬 관련 상태 관리
+    search: searchSlice, // 검색어 관련 상태 관리
+    toggle: toggleSlice, // UI 토글 상태 관리
   },
 });
 
-// 3) 만든 store를 내보냄
+// 생성한 스토어를 내보내기
 export default store;

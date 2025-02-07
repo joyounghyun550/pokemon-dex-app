@@ -5,15 +5,15 @@ const Home = () => {
   return (
     <StyRootDiv>
       <div>
-        {/* 포켓몬 로고 이미지 */}
+        {/* 포켓몬 로고 이미지 표시 */}
         <img
           src="src/assets/image/pokemon-logo-RN0wntMB.png"
           alt="Pokemon Logo"
           className="logoImage"
         />
 
-        {/* 버튼 클릭 시 /dex 페이지로 이동 */}
-        <Link to={"./Dex"}>
+        {/* '포켓몬 도감 시작하기' 버튼 클릭 시 /dex 페이지로 이동 */}
+        <Link to="/dex">
           <button className="statButton">포켓몬 도감 시작하기</button>
         </Link>
       </div>

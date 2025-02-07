@@ -27,11 +27,6 @@ export const StyRootDiv = styled.div`
       color: white; // 버튼 글자색 (흰색)
       border: none; // 테두리 제거
       transition: background-color 0.3s; // 배경색 변경 시 부드럽게 전환
-
-      .DexLink {
-        color: white;
-        text-decoration: none;
-      }
     }
   }
 `;
@@ -151,6 +146,10 @@ export const Card = styled.div`
   padding: 10px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+
+  .DetailLink {
+    text-decoration: none;
+  }
 
   img {
     width: 100px;

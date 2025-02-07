@@ -1,62 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Swal from "sweetalert2";
 import localStorageUtil, { STORAGE_KEYS } from "../../util/localStorageUtil";
-// import { localStorageUtil, STORAGE_KEYS } from "../../util/localStorageUtil";
-// 초기 상태
+
+// 초기 상태 정의
 const initialState = {
   pokemonList: [], // 전체 포켓몬 리스트
-  myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 잡은 포켓몬
+  myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 보유한 포켓몬 리스트 (로컬 스토리지에서 불러옴)
 };
 
-// 슬라이스 생성
+// Redux Toolkit을 사용하여 포켓몬 관련 상태를 관리하는 슬라이스 생성
 const pokemonSlice = createSlice({
   name: "pokemon",
   initialState,
   reducers: {
-    // 초기 포켓몬 리스트 설정
+    // 전체 포켓몬 리스트를 설정하는 액션
     setPokemonList: (state, action) => {
       state.pokemonList = action.payload;
     },
-    // 포켓몬 추가
-    addPokemon: (state, action) => {
-      if (state.myPokemon.length >= 6) {
-        Swal.fire({
-          icon: "error",
-          title: `포켓볼 개수 부족`,
-          text: "포켓몬을 놔주시고 다시 포획을 시도하세요!! ",
-        });
-        return;
-      }
 
-      if (state.myPokemon.some((pokemon) => pokemon.id === action.payload.id)) {
-        Swal.fire({
-          icon: "error",
-          title: `${action.payload.korean_name}`,
-          text: "이미 잡은 포켓몬입니다.",
-        });
-        return;
-      }
+    // 사용자가 포켓몬을 추가하는 액션
+    addPokemon: (state, action) => {
       state.myPokemon.push(action.payload);
-      localStorageUtil.set(STORAGE_KEYS.MYPOKEMON, state.myPokemon);
-      Swal.fire({
-        icon: "success",
-        title: `${action.payload.korean_name}`,
-        text: "포획에 성공하셨습니다.",
-      });
+      localStorageUtil.set(STORAGE_KEYS.MYPOKEMON, state.myPokemon); // 로컬 스토리지 업데이트
     },
-    // 포켓몬 제거
+
+    // 사용자가 포켓몬을 삭제하는 액션
     removePokemon: (state, action) => {
       state.myPokemon = state.myPokemon.filter(
         (pokemon) => pokemon.id !== action.payload
       );
-      localStorageUtil.remove(STORAGE_KEYS.MYPOKEMON, action.payload);
+      localStorageUtil.remove(STORAGE_KEYS.MYPOKEMON, action.payload); // 로컬 스토리지에서 해당 포켓몬 삭제
     },
   },
 });
 
-// action creator
+// 액션 생성자 내보내기
 export const { setPokemonList, addPokemon, removePokemon } =
   pokemonSlice.actions;
 
-// 리듀서(함수)
+// 리듀서 내보내기 (스토어에서 사용)
 export default pokemonSlice.reducer;

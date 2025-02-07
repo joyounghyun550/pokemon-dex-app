@@ -1,47 +1,42 @@
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addPokemon } from "../redux/slices/pokemonSlice";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Card, StyledButton } from "../styles/StyledComponents";
+import useAlert from "../hooks/useAlert";
 
 const PokemonCard = ({ pokemon }) => {
-  // navigate는 React Router에서 페이지 이동을 위해 사용
-  const navigate = useNavigate();
-  // 리덕스를 사용하여 포켓몬을 추가하는 dispatch 함수
+  // 리덕스 디스패치 함수: 포켓몬을 내 목록에 추가하는 데 사용
   const dispatch = useDispatch();
+
+  // 내 포켓몬 목록의 개수를 리덕스에서 가져옵니다.
+  const myPokemonList = useSelector((state) => state.pokemon.myPokemon);
+
+  // 알림을 처리하는 훅을 사용하여 addShowAlert 함수 가져오기
+  const { addShowAlert } = useAlert();
+
+  // '추가' 버튼 클릭 시 호출되는 핸들러 함수
+  const addBtnHandler = (pokemon) => {
+    addShowAlert(pokemon, myPokemonList, dispatch); // 포켓몬 추가 알림 처리
+  };
 
   return (
     <>
+      {/* 포켓몬 정보를 카드 형태로 렌더링 */}
       <Card key={pokemon.id}>
-        <div
-          onClick={() => {
-            // 포켓몬 상세 페이지로 이동하는 URL 쿼리 파라미터 생성
-            const queryParams = new URLSearchParams({
-              id: pokemon.id,
-              korean_name: pokemon.korean_name,
-              img_url: pokemon.img_url,
-              description: pokemon.description,
-              type1: pokemon.types[0] || "", // 첫 번째 타입이 없으면 빈 문자열로 처리
-              type2: pokemon.types[1] || "", // 두 번째 타입이 없으면 빈 문자열로 처리
-            });
-
-            // 생성된 쿼리 파라미터와 함께 상세 페이지로 이동
-            navigate(`/Detail?${queryParams.toString()}`);
-          }}
-        >
-          {/* 포켓몬 이미지와 이름, 번호를 출력 */}
-          <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <Link to={`/Detail?id=${pokemon.id}`}>
           <div>
-            <p className="pokemonName">{pokemon.korean_name}</p>
-            <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+            {/* 포켓몬 이미지와 이름, 번호를 표시 */}
+            <img src={pokemon.img_url} alt={pokemon.korean_name} />
+            <div>
+              <p className="pokemonName">{pokemon.korean_name}</p>
+              <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+            </div>
           </div>
-        </div>
-
-        {/* 포켓몬을 내 목록에 추가하는 버튼 */}
+        </Link>
+        {/* '추가' 버튼: 포켓몬을 내 목록에 추가 */}
         <StyledButton
           onClick={() => {
-            // 리덕스를 사용하여 포켓몬 추가
-            dispatch(addPokemon(pokemon));
+            addBtnHandler(pokemon); // 포켓몬 추가 함수 호출
           }}
         >
           추가
@@ -51,7 +46,7 @@ const PokemonCard = ({ pokemon }) => {
   );
 };
 
-// PokemonCard 컴포넌트의 propTypes 설정: pokemon 객체는 필수로 특정 형태를 가져야 함
+// PokemonCard 컴포넌트에 전달되는 props에 대한 타입을 정의
 PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
     id: PropTypes.number.isRequired,

@@ -1,30 +1,16 @@
-import MOCK_DATA from "../data/mokadata";
-import { ListDiv } from "../styles/StyledComponents";
 import PokemonCard from "./PokemonCard";
-import { useSelector } from "react-redux";
+import { ListDiv } from "../styles/StyledComponents";
+import useFilteredPokemons from "../hooks/useFilteredPokemons";
 
 const PokemonList = () => {
-  const { searchTerm } = useSelector((state) => state.search);
-  const { showAllPokemon } = useSelector((state) => state.pokemonView);
-  const counterReducer = useSelector((state) => state.pokemon.myPokemon);
-
-  // 필터링된 포켓몬 목록을 가져오는 함수
-  const getPokemonsToRender = () => {
-    const pokemons = showAllPokemon ? MOCK_DATA : counterReducer; // 모든 포켓몬 보기 vs 나의 포켓몬 보기
-    if (searchTerm === "") {
-      return pokemons; // 검색어가 없으면 모든 포켓몬을 반환
-    }
-    return pokemons.filter(
-      (pokemon) =>
-        pokemon.korean_name.toLowerCase().includes(searchTerm.toLowerCase()) // 검색어에 맞는 포켓몬 필터링
-    );
-  };
-
-  const filteredPokemons = getPokemonsToRender();
+  // useFilteredPokemons 훅을 사용하여 필터링된 포켓몬 목록을 가져옴
+  const filteredPokemons = useFilteredPokemons();
 
   return (
     <div>
+      {/* 포켓몬 목록을 출력할 리스트 컨테이너 */}
       <ListDiv>
+        {/* 필터링된 포켓몬 배열을 순회하여 각 포켓몬에 대해 PokemonCard 컴포넌트를 렌더링 */}
         {filteredPokemons.map((pokemon) => (
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
