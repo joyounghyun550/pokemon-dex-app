@@ -252,6 +252,7 @@ export const DetailBox = styled.div`
   }
 
   button {
+    color: white;
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
