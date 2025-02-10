@@ -60,7 +60,8 @@ https://pokemon-dex-app-zeta.vercel.app/
 
 # 프로젝트 클론
 
-git clone https://github.com/your-repo/pokemon-dex.git
+git clone https://github.com/joyounghyun550/pokemon-dex-app.git
+
 cd pokemon-dex
 
 # 패키지 설치
