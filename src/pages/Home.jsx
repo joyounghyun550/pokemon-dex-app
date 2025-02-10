@@ -4,6 +4,7 @@ import { StyRootDiv } from "../styles/StyledComponents";
 const Home = () => {
   return (
     <StyRootDiv>
+      {}
       <div>
         {/* 포켓몬 로고 이미지 표시 */}
         <img

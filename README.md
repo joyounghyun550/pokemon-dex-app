@@ -1,8 +1,66 @@
-# React + Vite
+# 🌟 포켓몬 도감 (Pokemon Dex)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 📌 프로젝트 소개
 
-Currently, two official plugins are available:
+포켓몬 도감 프로젝트는 사용자가 포켓몬을 검색하고 선택하여 나만의 포켓몬 팀을 구성할 수 있도록 합니다.
+선택된 포켓몬은 대시보드에 추가되며, 중복 선택 방지 및 저장 기능을 제공합니다.
+또한, 페이지 전환 시 스크롤 위치를 유지하는 기능과 상세 페이지에서 이전/다음 포켓몬으로 이동하는 기능을 포함하고 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ 주요 기능
+
+🎯 1. 포켓몬 선택 기능
+
+✔️ addPokemon 함수를 사용하여 포켓몬을 선택할 수 있습니다.
+✔️ 선택된 포켓몬은 Dashboard에 추가됩니다.
+✔️ 최대 6개의 포켓몬만 선택할 수 있습니다.
+
+🗑️ 2. 포켓몬 삭제 기능
+
+✔️ removePokemon 함수를 사용하여 선택된 포켓몬을 대시보드에서 삭제할 수 있습니다.
+
+🔔 3. 알림 기능 추가
+
+✔️ 중복 선택 또는 최대 개수 초과 시 사용자에게 alert 메시지를 띄워 안내합니다.
+✔️ sweetalert2 UI 라이브러리를 활용하여 모달 창 형태의 알림을 제공합니다.
+
+🔍 4. 검색 기능 추가
+
+✔️ 검색창에서 포켓몬 이름을 입력하면 실시간으로 검색 결과가 나타납니다.
+✔️ debounce를 활용하여 입력 후 일정 시간 후 검색 결과를 불러옵니다.
+
+📜 5. 페이지 전환 시 스크롤 위치 유지
+
+✔️ dex 페이지에서 detail 페이지로 이동 시 스크롤 위치를 sessionStorage에 저장합니다.
+✔️ detail 페이지에서 뒤로 가기 버튼을 클릭하면 저장된 스크롤 위치로 복원됩니다.
+
+🔄 6. 이전/다음 포켓몬으로 이동
+
+✔️ 디테일 페이지에서 현재 포켓몬의 이전/다음 포켓몬으로 이동할 수 있습니다.
+
+⬆️ 7. 스크롤 최상단 이동 기능
+
+✔️ 페이지 내에서 최상단으로 이동할 수 있는 버튼을 추가하였습니다.
+
+💾 8. 로컬 스토리지 활용
+
+✔️ localStorage를 사용하여 선택된 포켓몬을 저장 및 삭제, 불러오기가 가능합니다.
+✔️ 페이지 새로고침 후에도 선택한 포켓몬 리스트 유지됩니다.
+
+🚀 설치 및 실행 방법
+
+# 프로젝트 클론
+
+git clone https://github.com/your-repo/pokemon-dex.git
+cd pokemon-dex
+
+# 패키지 설치
+
+yarn
+
+# 프로젝트 실행
+
+yarn dev
+
+# 🛠️ 사용한 라이브러리
+
+📌 React - 프론트엔드 UI 구현📌 Redux Toolkit - 상태 관리📌 SweetAlert2 - 알림 기능 구현📌 React Router - 페이지 이동 및 라우팅📌 styled-components - 스타일링
