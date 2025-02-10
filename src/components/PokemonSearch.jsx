@@ -1,4 +1,4 @@
-import useSearch from "../hooks/useSearch";
+import useDebounce from "../hooks/useDebounce";
 import {
   PokemonSearchTitle,
   SearchDiv,
@@ -7,9 +7,9 @@ import {
 } from "../styles/StyledComponents";
 
 const PokemonSearch = () => {
-  // useSearch 훅을 사용하여 검색어 및 토글 상태를 관리하는 변수와 함수들 가져오기
+  // useDebounce 훅을 사용하여 검색어 및 토글 상태를 관리하는 변수와 함수들 가져오기
   const { inputValue, handleSearchChange, togglePokemonList, showAllPokemon } =
-    useSearch();
+    useDebounce();
 
   return (
     <SearchDiv>

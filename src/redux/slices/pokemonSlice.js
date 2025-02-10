@@ -3,7 +3,6 @@ import localStorageUtil, { STORAGE_KEYS } from "../../util/localStorageUtil";
 
 // 초기 상태 정의
 const initialState = {
-  pokemonList: [], // 전체 포켓몬 리스트
   myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 보유한 포켓몬 리스트 (로컬 스토리지에서 불러옴)
 };
 
@@ -12,11 +11,6 @@ const pokemonSlice = createSlice({
   name: "pokemon",
   initialState,
   reducers: {
-    // 전체 포켓몬 리스트를 설정하는 액션
-    setPokemonList: (state, action) => {
-      state.pokemonList = action.payload;
-    },
-
     // 사용자가 포켓몬을 추가하는 액션
     addPokemon: (state, action) => {
       state.myPokemon.push(action.payload);
@@ -34,8 +28,7 @@ const pokemonSlice = createSlice({
 });
 
 // 액션 생성자 내보내기
-export const { setPokemonList, addPokemon, removePokemon } =
-  pokemonSlice.actions;
+export const { addPokemon, removePokemon } = pokemonSlice.actions;
 
 // 리듀서 내보내기 (스토어에서 사용)
 export default pokemonSlice.reducer;

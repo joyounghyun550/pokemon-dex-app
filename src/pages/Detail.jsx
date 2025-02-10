@@ -1,45 +1,28 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DetailBox } from "../styles/StyledComponents";
+import useHandleRemovePokemon from "../hooks/useRemoveAlert";
+import useAlert from "../hooks/useAddAlert";
+import useSelectPokemon from "../hooks/useSelectPokemon";
 import MOCK_DATA from "../data/mokadata";
-import useHandleRemovePokemon from "../hooks/useRemoveToggle";
-import useAlert from "../hooks/useAlert";
 
 const Detail = () => {
-  // Redux 상태 관리
-  const dispatch = useDispatch();
-  const myPokemonList = useSelector((state) => state.pokemon.myPokemon);
-
-  // URL에서 포켓몬 ID 가져오기
-  const [query] = useSearchParams();
-  const detailPokemonId = +query.get("id");
-
-  // 선택한 포켓몬 데이터 찾기
-  const selectPokemon = MOCK_DATA.find(
-    (pokemon) => pokemon.id === detailPokemonId
-  );
-
   // 포켓몬 삭제 및 알림 훅 가져오기
   const handleRemovePokemon = useHandleRemovePokemon();
-  const { addShowAlert } = useAlert();
-
   // 포켓몬 추가 버튼 핸들러
-  const addBtnHandler = (pokemon) => {
-    addShowAlert(pokemon, myPokemonList, dispatch);
-  };
-
-  // 포켓몬이 존재하지 않을 경우 예외 처리
-  if (!selectPokemon) {
-    return <div>포켓몬을 찾을 수 없습니다.</div>;
-  }
-
-  // 현재 포켓몬이 내 목록에 있는지 확인
-  const isPokemonInMyList = myPokemonList.some(
-    (myPokemon) => myPokemon.id === selectPokemon.id
-  );
+  const addShowAlert = useAlert();
+  const { selectPokemon, isPokemonInMyList } = useSelectPokemon();
 
   return (
     <DetailBox>
+      <Link
+        to={
+          selectPokemon.id === 1
+            ? `/detail?id=${MOCK_DATA.length}`
+            : `/detail?id=${selectPokemon.id - 1}`
+        }
+      >
+        <img src="/src/assets/image/left-image-removebg-preview.png" />
+      </Link>
       <div>
         {/* 포켓몬 이미지 및 이름 표시 */}
         <img src={selectPokemon.img_url} alt={selectPokemon.korean_name} />
@@ -47,12 +30,12 @@ const Detail = () => {
 
         {/* 포켓몬 특성 정보 표시 (없을 경우 '타입 정보 없음' 출력) */}
         <p className="pokemonType">
-          {selectPokemon.type1 && selectPokemon.type2
-            ? `특성 : ${selectPokemon.type1}, ${selectPokemon.type2}`
-            : selectPokemon.type1
-            ? `특성 : ${selectPokemon.type1}`
-            : selectPokemon.type2
-            ? `특성 : ${selectPokemon.type2}`
+          {selectPokemon.types[0] && selectPokemon.types[1]
+            ? `특성 : ${selectPokemon.types[0]}, ${selectPokemon.types[1]}`
+            : selectPokemon.types[0]
+            ? `특성 : ${selectPokemon.types[0]}`
+            : selectPokemon.types[1]
+            ? `특성 : ${selectPokemon.types[1]}`
             : "타입 정보 없음"}
         </p>
 
@@ -66,10 +49,10 @@ const Detail = () => {
             onClick={() => {
               isPokemonInMyList
                 ? handleRemovePokemon(selectPokemon.id)
-                : addBtnHandler(selectPokemon);
+                : addShowAlert(selectPokemon);
             }}
           >
-            {isPokemonInMyList ? "삭제하기" : "추가하기"}
+            {isPokemonInMyList ? "방생하기" : "포획하기"}
           </button>
 
           {/* 뒤로가기 버튼 */}
@@ -78,6 +61,15 @@ const Detail = () => {
           </Link>
         </div>
       </div>
+      <Link
+        to={
+          selectPokemon.id === MOCK_DATA.length
+            ? `/detail?id=1`
+            : `/detail?id=${selectPokemon.id + 1}`
+        }
+      >
+        <img src="/src/assets/image/right-image-removebg-preview.png" />
+      </Link>
     </DetailBox>
   );
 };

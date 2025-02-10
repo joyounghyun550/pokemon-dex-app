@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { removePokemon } from "../redux/slices/pokemonSlice";
 
-const useRemoveToggle = () => {
+const useRemoveAlert = () => {
   const dispatch = useDispatch();
 
   /**
@@ -37,4 +37,4 @@ const useRemoveToggle = () => {
   return handleRemovePokemon;
 };
 
-export default useRemoveToggle;
+export default useRemoveAlert;

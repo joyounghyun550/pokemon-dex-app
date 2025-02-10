@@ -31,6 +31,32 @@ export const StyRootDiv = styled.div`
   }
 `;
 
+export const ScrollToTopButton = styled.div`
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 20px; /* 화면 하단에서 20px 만큼 띄우기 */
+  right: 20px; /* 화면 오른쪽에서 20px 만큼 띄우기 */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  /* 스크롤을 내린 상태에서 버튼이 보이도록 */
+  z-index: 1000;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 export const RootDiv = styled.div`
   width: 100%;
   height: 100vh;
@@ -43,63 +69,55 @@ export const RootDiv = styled.div`
 `;
 
 export const StDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 20px;
   background-color: #b0e0b1;
-  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid rgb(221, 221, 221);
   border-radius: 10px;
 
-  #pokemon-dash-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
-    justify-items: center;
+  .MypokemonDiv {
+    border: 1px solid rgb(221, 221, 221);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 
-    .MypokemonDiv {
-      border: 1px solid rgb(221, 221, 221);
-      background-color: rgb(255, 255, 255);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-      text-align: center;
-      padding: 10px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+
+    .pokemonName {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 5px 0px;
+      color: black;
+    }
+
+    .pokemonNo {
+      font-size: 12px;
+      color: rgb(102, 102, 102);
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
-
-      div {
-        margin-top: 10px;
-      }
-
-      .pokemonName {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0px;
-        color: black;
-      }
-
-      .pokemonNo {
-        font-size: 12px;
-        color: rgb(102, 102, 102);
-      }
-
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        border: none;
-        background-color: rgb(255, 0, 0);
-        color: rgb(255, 255, 255);
-        border-radius: 5px;
-      }
+      border: none;
+      background-color: rgb(255, 0, 0);
+      color: rgb(255, 255, 255);
+      border-radius: 5px;
     }
   }
 
@@ -115,10 +133,17 @@ export const StDiv = styled.div`
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
 
     img {
       width: 100px;
       height: 100px;
+    }
+
+    span {
+      color: black;
     }
   }
 `;
@@ -191,6 +216,13 @@ export const Card = styled.div`
 
 export const DetailBox = styled.div`
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: black;
+  }
 
   div {
     display: flex;
@@ -249,7 +281,12 @@ export const SearchDiv = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  background-color: #4b8a8c !important;
+  background-color: ${(props) => props.$backgroundColor || "red"} !important;
+  &:hover {
+    background-color: ${(props) =>
+      props.$hoverBackgroundColor || "red"} !important;
+    transform: scale(1.05) !important;
+  }
   color: white !important;
   font-weight: bold !important;
   padding: 5px 10px !important;
@@ -257,11 +294,6 @@ export const StyledButton = styled(Button)`
   transition: background-color 0.3s, transform 0.2s !important;
   margin: 20px !important;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
-
-  &:hover {
-    background-color: #025336 !important;
-    transform: scale(1.05) !important;
-  }
 
   &:active {
     transform: scale(0.95) !important;

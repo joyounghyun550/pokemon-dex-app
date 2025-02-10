@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { addPokemon } from "../redux/slices/pokemonSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 // 포켓몬 추가 시 알림을 처리하는 커스텀 훅
 const useAlert = () => {
@@ -9,9 +10,15 @@ const useAlert = () => {
    * @param {Array} counterReducer - 현재 포획한 포켓몬 목록
    * @param {Function} dispatch - Redux 액션 디스패치 함수
    */
-  const addShowAlert = (pokemon, counterReducer, dispatch) => {
+  // 리덕스 디스패치 함수: 포켓몬을 내 목록에 추가하는 데 사용
+  const dispatch = useDispatch();
+
+  // 내 포켓몬 목록의 개수를 리덕스에서 가져옵니다.
+  const myPokemonList = useSelector((state) => state.pokemon.myPokemon);
+
+  const addShowAlert = (pokemon) => {
     // 이미 잡은 포켓몬인지 확인
-    if (counterReducer.some((myPokemon) => myPokemon.id === pokemon.id)) {
+    if (myPokemonList.some((myPokemon) => myPokemon.id === pokemon.id)) {
       Swal.fire({
         icon: "error",
         title: `${pokemon.korean_name}`,
@@ -21,7 +28,7 @@ const useAlert = () => {
     }
 
     // 포켓몬 슬롯(6개) 초과 여부 확인
-    if (counterReducer.length >= 6) {
+    if (myPokemonList.length >= 6) {
       Swal.fire({
         icon: "error",
         title: `포켓볼 개수 부족`,
@@ -39,7 +46,7 @@ const useAlert = () => {
     });
   };
 
-  return { addShowAlert };
+  return addShowAlert;
 };
 
 export default useAlert;
