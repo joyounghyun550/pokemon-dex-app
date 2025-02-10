@@ -1,16 +1,21 @@
-import MOCK_DATA from "../data/mokadata";
 import PokemonCard from "./PokemonCard";
 import { ListDiv } from "../styles/StyledComponents";
+import useFilteredPokemons from "../hooks/useFilteredPokemons";
 
 const PokemonList = () => {
+  // useFilteredPokemons 훅을 사용하여 필터링된 포켓몬 목록을 가져옴
+  const filteredPokemons = useFilteredPokemons();
+
   return (
-    <ListDiv>
-      {/* MOCK_DATA 배열에 있는 모든 포켓몬 데이터를 PokemonCard 컴포넌트로 렌더링 */}
-      {MOCK_DATA.map((pokemon) => {
-        // 각 포켓몬마다 PokemonCard 컴포넌트를 생성하고 pokemon 데이터를 전달
-        return <PokemonCard key={pokemon.id} pokemon={pokemon} />;
-      })}
-    </ListDiv>
+    <div>
+      {/* 포켓몬 목록을 출력할 리스트 컨테이너 */}
+      <ListDiv>
+        {/* 필터링된 포켓몬 배열을 순회하여 각 포켓몬에 대해 PokemonCard 컴포넌트를 렌더링 */}
+        {filteredPokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </ListDiv>
+    </div>
   );
 };
 

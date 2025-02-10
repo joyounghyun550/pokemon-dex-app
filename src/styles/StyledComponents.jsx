@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 export const StyRootDiv = styled.div`
   width: 100%;
@@ -29,8 +31,35 @@ export const StyRootDiv = styled.div`
   }
 `;
 
+export const ScrollToTopButton = styled.div`
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 20px; /* 화면 하단에서 20px 만큼 띄우기 */
+  right: 20px; /* 화면 오른쪽에서 20px 만큼 띄우기 */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  /* 스크롤을 내린 상태에서 버튼이 보이도록 */
+  z-index: 1000;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+`;
+
 export const RootDiv = styled.div`
   width: 100%;
+  height: 100vh;
 
   .app-container {
     display: flex; // flexbox를 사용하여 요소 배치
@@ -40,84 +69,81 @@ export const RootDiv = styled.div`
 `;
 
 export const StDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 20px;
+  background-color: #b0e0b1;
   padding: 20px;
-  background-color: rgb(248, 248, 248);
-  margin-bottom: 20px;
+  border: 1px solid rgb(221, 221, 221);
   border-radius: 10px;
 
-  h2 {
-    margin-bottom: 20px;
-    color: rgb(255, 0, 0);
-  }
+  .MypokemonDiv {
+    border: 1px solid rgb(221, 221, 221);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 
-  #pokemon-dash-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
-    justify-items: center;
+    img {
+      width: 100px;
+      height: 100px;
+    }
 
-    .MypokemonDiv {
-      border: 1px solid rgb(221, 221, 221);
-      background-color: rgb(255, 255, 255);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-      text-align: center;
-      padding: 10px;
+    div {
+      margin-top: 10px;
+    }
+
+    .pokemonName {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 5px 0px;
+      color: black;
+    }
+
+    .pokemonNo {
+      font-size: 12px;
+      color: rgb(102, 102, 102);
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
-
-      div {
-        margin-top: 10px;
-      }
-
-      .pokemonName {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0px;
-        color: black;
-      }
-
-      .pokemonNo {
-        font-size: 12px;
-        color: rgb(102, 102, 102);
-      }
-
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        border: none;
-        background-color: rgb(255, 0, 0);
-        color: rgb(255, 255, 255);
-        border-radius: 5px;
-      }
+      border: none;
+      background-color: rgb(255, 0, 0);
+      color: rgb(255, 255, 255);
+      border-radius: 5px;
     }
   }
 
   .BallDiv {
-    width: 100px;
-    height: 100px;
+    border: 1px solid rgb(221, 221, 221);
     background-color: rgb(255, 255, 255);
-    border: 2px dashed rgb(204, 204, 204);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    flex-direction: column;
+    gap: 30px;
 
     img {
-      width: 50px;
-      height: 50px;
+      width: 100px;
+      height: 100px;
+    }
+
+    span {
+      color: black;
     }
   }
 `;
@@ -129,7 +155,7 @@ export const ListDiv = styled.div`
     minmax(150px, 1fr)
   ); // 자동으로 열을 채우도록 설정
   gap: 20px; // 카드 간격 설정
-  background-color: rgb(240, 240, 240); // 배경색 설정
+  background-color: #b0e0b1; /* Pale Green */
   padding: 20px; // 내부 여백 설정
   border: 1px solid rgb(221, 221, 221); // 테두리 설정
   border-radius: 10px; // 모서리를 둥글게 설정
@@ -137,7 +163,7 @@ export const ListDiv = styled.div`
 
 export const Card = styled.div`
   border: 1px solid rgb(221, 221, 221);
-  background-color: rgb(255, 255, 255);
+  background-color: #f5f5f5;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
@@ -145,6 +171,10 @@ export const Card = styled.div`
   padding: 10px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+
+  .DetailLink {
+    text-decoration: none;
+  }
 
   img {
     width: 100px;
@@ -177,10 +207,22 @@ export const Card = styled.div`
     color: rgb(255, 255, 255);
     border-radius: 5px;
   }
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 12px; // 마우스 오버 시 그림자 강화
+  }
 `;
 
 export const DetailBox = styled.div`
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: black;
+  }
 
   div {
     display: flex;
@@ -224,4 +266,75 @@ export const DetailBox = styled.div`
     cursor: pointer;
     transition: border-color 0.25s;
   }
+`;
+
+export const SearchDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #b0e0b1; /* Pale Green */
+  margin-bottom: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  transition: all 0.3s ease;
+`;
+
+export const StyledButton = styled(Button)`
+  background-color: ${(props) => props.$backgroundColor || "red"} !important;
+  &:hover {
+    background-color: ${(props) =>
+      props.$hoverBackgroundColor || "red"} !important;
+    transform: scale(1.05) !important;
+  }
+  color: white !important;
+  font-weight: bold !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s, transform 0.2s !important;
+  margin: 20px !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3) !important;
+
+  &:active {
+    transform: scale(0.95) !important;
+  }
+`;
+
+export const StyledTextField = styled(TextField)`
+  width: 300px;
+  margin: 20px;
+  width: 50%;
+  height: 20%;
+  font-size: 18px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 10px;
+
+  & .MuiOutlinedInput-root {
+    font-size: 16px;
+    background-color: white;
+    border-radius: 8px;
+  }
+`;
+
+export const PokemonSearchTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+`;
+
+export const InputWrapper = styled.div`
+  width: 100%;
+  height: 50px;
+  background-image: url("https://example.com/background-image.jpg"); /* 배경 이미지 URL */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

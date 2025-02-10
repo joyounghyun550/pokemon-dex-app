@@ -1,57 +1,51 @@
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addPokemon } from "../redux/slices/pokemonSlice";
-import { Card } from "../styles/StyledComponents";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Card, StyledButton } from "../styles/StyledComponents";
+import useAddAlert from "../hooks/useAddAlert";
+import useRemoveAlert from "../hooks/useRemoveAlert";
+import useScrollMemo from "../util/ScrollMemo";
+import usePokemonIdCheck from "../hooks/usePokemonIdCheck";
 
 const PokemonCard = ({ pokemon }) => {
-  // navigate는 React Router에서 페이지 이동을 위해 사용
-  const navigate = useNavigate();
-  // 리덕스를 사용하여 포켓몬을 추가하는 dispatch 함수
-  const dispatch = useDispatch();
+  // 포켓몬을 추가 및 알림 메세지를 가져오는 함수
+  const addShowAlert = useAddAlert();
+  // 포켓몬을 제거 및 알림 메세지를 가져오는 함수
+  const remoteShowAlret = useRemoveAlert();
+  // 스크롤 최상단 이동
+  const ScrollMemoHandle = useScrollMemo();
+  // 나의 포켓몬 리스트에 현재선택된 포켓몬이 있는지 체크
+  const isOwned = usePokemonIdCheck(pokemon);
 
   return (
     <>
+      {/* 포켓몬 정보를 카드 형태로 렌더링 */}
       <Card key={pokemon.id}>
-        <div
-          onClick={() => {
-            // 포켓몬 상세 페이지로 이동하는 URL 쿼리 파라미터 생성
-            const queryParams = new URLSearchParams({
-              id: pokemon.id,
-              korean_name: pokemon.korean_name,
-              img_url: pokemon.img_url,
-              description: pokemon.description,
-              type1: pokemon.types[0] || "", // 첫 번째 타입이 없으면 빈 문자열로 처리
-              type2: pokemon.types[1] || "", // 두 번째 타입이 없으면 빈 문자열로 처리
-            });
-
-            // 생성된 쿼리 파라미터와 함께 상세 페이지로 이동
-            navigate(`/PokemonDetail?${queryParams.toString()}`);
-          }}
-        >
-          {/* 포켓몬 이미지와 이름, 번호를 출력 */}
-          <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <Link onClick={ScrollMemoHandle} to={`/Detail?id=${pokemon.id}`}>
           <div>
-            <p className="pokemonName">{pokemon.korean_name}</p>
-            <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+            {/* 포켓몬 이미지와 이름, 번호를 표시 */}
+            <img src={pokemon.img_url} alt={pokemon.korean_name} />
+            <div>
+              <p className="pokemonName">{pokemon.korean_name}</p>
+              <p className="pokemonNo">No. {"00" + pokemon.id}</p>
+            </div>
           </div>
-        </div>
-
-        {/* 포켓몬을 내 목록에 추가하는 버튼 */}
-        <button
+        </Link>
+        {/* '추가' 버튼: 포켓몬을 내 목록에 추가 */}
+        <StyledButton
+          $backgroundColor={isOwned ? "#cfe033" : "#4b8a8c"}
+          $hoverBackgroundColor={isOwned ? "#adbc2c" : "#025336"}
           onClick={() => {
-            // 리덕스를 사용하여 포켓몬 추가
-            dispatch(addPokemon(pokemon));
+            !isOwned ? addShowAlert(pokemon) : remoteShowAlret(pokemon.id);
           }}
         >
-          추가
-        </button>
+          {isOwned ? "보유" : "포획"}
+        </StyledButton>
       </Card>
     </>
   );
 };
 
-// PokemonCard 컴포넌트의 propTypes 설정: pokemon 객체는 필수로 특정 형태를 가져야 함
+// PokemonCard 컴포넌트에 전달되는 props에 대한 타입을 정의
 PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
     id: PropTypes.number.isRequired,

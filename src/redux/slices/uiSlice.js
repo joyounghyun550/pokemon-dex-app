@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import localStorageUtil, { STORAGE_KEYS } from "../../util/localStorageUtil";
 
-// 초기 상태 정의
-const initialState = {
-  myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 보유한 포켓몬 리스트 (로컬 스토리지에서 불러옴)
-};
-
-// Redux Toolkit을 사용하여 포켓몬 관련 상태를 관리하는 슬라이스 생성
-const pokemonSlice = createSlice({
-  name: "pokemon",
-  initialState,
+const uiSlice = createSlice({
+  name: "ui",
+  initialState: {
+    myPokemon: localStorageUtil.get(STORAGE_KEYS.MYPOKEMON), // 사용자가 보유한 포켓몬 리스트 (로컬 스토리지에서 불러옴)
+    searchTerm: "",
+    showAllPokemon: true,
+  },
   reducers: {
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+    togglePokemonView(state) {
+      state.showAllPokemon = !state.showAllPokemon;
+    },
     // 사용자가 포켓몬을 추가하는 액션
     addPokemon: (state, action) => {
       state.myPokemon.push(action.payload);
@@ -27,8 +31,6 @@ const pokemonSlice = createSlice({
   },
 });
 
-// 액션 생성자 내보내기
-export const { addPokemon, removePokemon } = pokemonSlice.actions;
+export const {setSearchTerm, togglePokemonView, addPokemon, removePokemon} = uiSlice.actions;
 
-// 리듀서 내보내기 (스토어에서 사용)
-export default pokemonSlice.reducer;
+export default uiSlice.reducer;
