@@ -5,6 +5,7 @@ import PokemonSearch from "../components/PokemonSearch";
 import { RootDiv, ScrollToTopButton } from "../styles/StyledComponents";
 import useTopBtn from "../util/ScrollTopBtn";
 import useScrollGet from "../hooks/useScrollGet";
+import toTopButton from "../assets/image/toTop.png";
 
 const Dex = () => {
   // Redux 상태에서 showAllPokemon 값을 가져옴
@@ -22,7 +23,7 @@ const Dex = () => {
         {showAllPokemon ? <PokemonList /> : <Dashboard />}
       </div>
       <ScrollToTopButton onClick={useToTop}>
-        <img src="/src/assets/image/toTop.png" />
+        <img src={toTopButton} />
       </ScrollToTopButton>
     </RootDiv>
   );

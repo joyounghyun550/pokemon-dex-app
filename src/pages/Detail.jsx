@@ -4,6 +4,8 @@ import useHandleRemovePokemon from "../hooks/useRemoveAlert";
 import useAlert from "../hooks/useAddAlert";
 import useSelectPokemon from "../hooks/useSelectPokemon";
 import MOCK_DATA from "../data/mokadata";
+import left from "../assets/image/left-image-removebg-preview.png";
+import right from "../assets/image/right-image-removebg-preview.png";
 
 const Detail = () => {
   // 포켓몬 삭제 및 알림 훅 가져오기
@@ -21,7 +23,7 @@ const Detail = () => {
             : `/detail?id=${selectPokemon.id - 1}`
         }
       >
-        <img src="/src/assets/image/left-image-removebg-preview.png" />
+        <img src={left} />
       </Link>
       <div>
         {/* 포켓몬 이미지 및 이름 표시 */}
@@ -68,7 +70,7 @@ const Detail = () => {
             : `/detail?id=${selectPokemon.id + 1}`
         }
       >
-        <img src="/src/assets/image/right-image-removebg-preview.png" />
+        <img src={right} />
       </Link>
     </DetailBox>
   );

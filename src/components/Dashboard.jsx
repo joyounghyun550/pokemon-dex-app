@@ -3,6 +3,8 @@ import usePokeballCount from "../hooks/usePokeballCount";
 import useHandleRemovePokemon from "../hooks/useRemoveAlert";
 import { StDiv, StyledButton } from "../styles/StyledComponents";
 import { Link } from "react-router-dom";
+import pokeBall from "../assets/image/pokeball-13iwdk7Y.png";
+
 const Dashboard = () => {
   // 필터링된 포켓몬 목록을 가져옵니다.
   const filteredPokemons = useSearchToRender();
@@ -40,7 +42,7 @@ const Dashboard = () => {
       {/* 남은 포켓볼 슬롯을 렌더링 */}
       {Array.from({ length: pokeballCount }).map((_, i) => (
         <div className="BallDiv" key={i}>
-          <img src="src/assets/image/pokeball-13iwdk7Y.png" alt="포켓볼" />
+          <img src={pokeBall} alt="포켓볼" />
           <span>몬스터 볼</span>
         </div>
       ))}
