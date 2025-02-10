@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import pokemonSlice from "../slices/pokemonSlice";
 import searchSlice from "../slices/searchSlice";
 import toggleSlice from "../slices/toggleSlice";
-import uiSlice from "../slices/uiSlice";
 
 // Redux 스토어 생성 및 설정
 const store = configureStore({
@@ -10,7 +9,6 @@ const store = configureStore({
     pokemon: pokemonSlice, // 포켓몬 관련 상태 관리
     search: searchSlice, // 검색어 관련 상태 관리
     toggle: toggleSlice, // UI 토글 상태 관리
-    ui: uiSlice,
   },
 });
 
