@@ -17,28 +17,38 @@ const Dashboard = () => {
     <StDiv>
       {/* 보유 포켓몬 목록을 렌더링하는 영역 */}
       {/* 필터링된 포켓몬 목록을 순회하면서 각 포켓몬의 정보를 표시 */}
-      {filteredPokemons.map((item) => (
-        <div className="MypokemonDiv" key={item.id}>
-          {/* 포켓몬 상세 페이지로 이동할 수 있는 링크 */}
-          <Link to={`/Detail?id=${item.id}`}>
-            <div>
-              <img src={item.img_url} alt={item.korean_name} />
+
+      {filteredPokemons.length > 0 ? (
+        filteredPokemons.map((item) => (
+          <div className="MypokemonDiv" key={item.id}>
+            {/* 포켓몬 상세 페이지로 이동할 수 있는 링크 */}
+            <Link to={`/Detail?id=${item.id}`}>
               <div>
-                <p className="pokemonName">{item.korean_name}</p>
-                <p className="pokemonNo">No. {"00" + item.id}</p>
+                <img src={item.img_url} alt={item.korean_name} />
+                <div>
+                  <p className="pokemonName">{item.korean_name}</p>
+                  <p className="pokemonNo">No. {"00" + item.id}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-          {/* 포켓몬 삭제 버튼 */}
-          <StyledButton
-            onClick={() => {
-              handleRemovePokemon(item.id); // 삭제 버튼 클릭 시 포켓몬을 삭제
-            }}
-          >
-            방생
-          </StyledButton>
-        </div>
-      ))}
+            </Link>
+            {/* 포켓몬 삭제 버튼 */}
+            <StyledButton
+              onClick={() => {
+                handleRemovePokemon(item.id); // 삭제 버튼 클릭 시 포켓몬을 삭제
+              }}
+            >
+              방생
+            </StyledButton>
+          </div>
+        ))
+      ) : (
+        <h1 className="nodataAlert">
+          존재하는
+          <br /> 포켓몬이
+          <br /> 없습니다.
+        </h1>
+      )}
+      {}
       {/* 남은 포켓볼 슬롯을 렌더링 */}
       {Array.from({ length: pokeballCount }).map((_, i) => (
         <div className="BallDiv" key={i}>
