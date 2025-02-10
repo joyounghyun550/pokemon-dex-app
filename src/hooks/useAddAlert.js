@@ -4,12 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 // 포켓몬 추가 시 알림을 처리하는 커스텀 훅
 const useAlert = () => {
-  /**
-   * 포켓몬 추가 시 알림을 띄우는 함수
-   * @param {Object} pokemon - 추가할 포켓몬 객체
-   * @param {Array} counterReducer - 현재 포획한 포켓몬 목록
-   * @param {Function} dispatch - Redux 액션 디스패치 함수
-   */
   // 리덕스 디스패치 함수: 포켓몬을 내 목록에 추가하는 데 사용
   const dispatch = useDispatch();
 

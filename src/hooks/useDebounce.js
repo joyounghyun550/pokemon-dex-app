@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm } from "../redux/slices/searchSlice";
-import { togglePokemonView } from "../redux/slices/toggleSlice";
 import { debounce } from "../util/debounce";
 import { useState, useEffect } from "react";
 
@@ -25,25 +24,13 @@ const useSearch = () => {
     };
   }, [inputValue, dispatch]);
 
-  /**
-   * 검색어 입력 값이 변경될 때마다 호출되는 함수
-   * @param {Object} e - 이벤트 객체
-   */
   const handleSearchChange = (e) => {
     setInputValue(e.target.value); // 입력된 값으로 상태 업데이트
-  };
-
-  /**
-   * 포켓몬 목록 표시 여부를 토글하는 함수
-   */
-  const togglePokemonList = () => {
-    dispatch(togglePokemonView()); // 포켓몬 목록 표시 상태를 토글
   };
 
   return {
     inputValue, // 현재 입력된 검색어
     handleSearchChange, // 검색어 입력 핸들러
-    togglePokemonList, // 포켓몬 목록 토글 핸들러
     showAllPokemon, // 모든 포켓몬 표시 여부
   };
 };

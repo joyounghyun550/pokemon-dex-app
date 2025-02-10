@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Card, StyledButton } from "../styles/StyledComponents";
 import useAddAlert from "../hooks/useAddAlert";
 import useRemoveAlert from "../hooks/useRemoveAlert";
-import useScrollMemo from "../hooks/useScrollMemo";
+import useScrollMemo from "../util/ScrollMemo";
 import usePokemonIdCheck from "../hooks/usePokemonIdCheck";
 
 const PokemonCard = ({ pokemon }) => {
@@ -12,7 +12,7 @@ const PokemonCard = ({ pokemon }) => {
   // 포켓몬을 제거 및 알림 메세지를 가져오는 함수
   const remoteShowAlret = useRemoveAlert();
   // 스크롤 최상단 이동
-  const handleLinkClick = useScrollMemo();
+  const ScrollMemoHandle = useScrollMemo();
   // 나의 포켓몬 리스트에 현재선택된 포켓몬이 있는지 체크
   const isOwned = usePokemonIdCheck(pokemon);
 
@@ -20,7 +20,7 @@ const PokemonCard = ({ pokemon }) => {
     <>
       {/* 포켓몬 정보를 카드 형태로 렌더링 */}
       <Card key={pokemon.id}>
-        <Link onClick={handleLinkClick} to={`/Detail?id=${pokemon.id}`}>
+        <Link onClick={ScrollMemoHandle} to={`/Detail?id=${pokemon.id}`}>
           <div>
             {/* 포켓몬 이미지와 이름, 번호를 표시 */}
             <img src={pokemon.img_url} alt={pokemon.korean_name} />
