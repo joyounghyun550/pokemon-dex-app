@@ -290,7 +290,6 @@ export const SearchDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
   background-color: #b0e0b1; /* Pale Green */
   margin-bottom: 30px;
   border-radius: 15px;
