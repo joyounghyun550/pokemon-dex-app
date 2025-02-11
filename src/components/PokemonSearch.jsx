@@ -1,4 +1,5 @@
 import useDebounce from "../hooks/useDebounce";
+import useFocus from "../hooks/useFocus";
 import useToggle from "../hooks/useToggle";
 import {
   PokemonSearchTitle,
@@ -12,6 +13,7 @@ const PokemonSearch = () => {
   const { searchTerm, showAllPokemon, handleSearchChange } = useDebounce();
   // 토글
   const togglePokemon = useToggle();
+  const inputRef = useFocus();
 
   return (
     <SearchDiv>
@@ -21,7 +23,7 @@ const PokemonSearch = () => {
       <StyledTextField
         type="text"
         placeholder="포켓몬을 검색하세요..."
-        autoFocus
+        inputRef={inputRef}
         value={searchTerm} // 검색어를 입력 값으로 설정
         onChange={handleSearchChange} // 입력 값 변경 시 검색어 업데이트
       />

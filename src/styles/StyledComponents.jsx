@@ -332,7 +332,7 @@ export const StyledTextField = styled(TextField)`
     background-color: white;
     border-radius: 8px;
   }
-`;
+`;  
 
 export const PokemonSearchTitle = styled.h1`
   font-size: 2rem;
