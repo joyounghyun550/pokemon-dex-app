@@ -222,6 +222,7 @@ export const Card = styled.div`
 
 export const DetailBox = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -273,13 +274,13 @@ export const DetailBox = styled.div`
     background-color: #1a1a1a;
     cursor: pointer;
     transition: border-color 0.25s;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   @media (max-width: 800px) {
     .pagebtn {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       max-width: 100%;
     }
   }
