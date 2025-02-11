@@ -29,6 +29,12 @@ export const StyRootDiv = styled.div`
       transition: background-color 0.3s; // 배경색 변경 시 부드럽게 전환
     }
   }
+
+  @media (max-width: 600px) {
+    .logoImage {
+      width: 300px;
+    }
+  }
 `;
 
 export const ScrollToTopButton = styled.div`
@@ -238,8 +244,8 @@ export const DetailBox = styled.div`
   }
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 
   h2 {
