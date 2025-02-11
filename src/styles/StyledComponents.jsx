@@ -243,9 +243,9 @@ export const DetailBox = styled.div`
     }
   }
 
-  img {
-    width: 150px;
-    height: 150px;
+  .pagebtn {
+    width: 200px;
+    height: 200px;
   }
 
   h2 {
@@ -255,6 +255,7 @@ export const DetailBox = styled.div`
 
   p {
     color: black;
+    flex-wrap: wrap;
   }
 
   button {
@@ -272,6 +273,15 @@ export const DetailBox = styled.div`
     background-color: #1a1a1a;
     cursor: pointer;
     transition: border-color 0.25s;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 800px) {
+    .pagebtn {
+      width: 100px;
+      height: 100px;
+      max-width: 100%;
+    }
   }
 `;
 

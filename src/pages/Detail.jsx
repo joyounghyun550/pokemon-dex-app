@@ -17,13 +17,14 @@ const Detail = () => {
   return (
     <DetailBox>
       <Link
+        className="pagebtn"
         to={
           selectPokemon.id === 1
             ? `/detail?id=${MOCK_DATA.length}`
             : `/detail?id=${selectPokemon.id - 1}`
         }
       >
-        <img src={left} />
+        <img className="pagebtn" src={left} />
       </Link>
       <div>
         {/* 포켓몬 이미지 및 이름 표시 */}
@@ -64,13 +65,14 @@ const Detail = () => {
         </div>
       </div>
       <Link
+        className="pagebtn"
         to={
           selectPokemon.id === MOCK_DATA.length
             ? `/detail?id=1`
             : `/detail?id=${selectPokemon.id + 1}`
         }
       >
-        <img src={right} />
+        <img className="pagebtn" src={right} />
       </Link>
     </DetailBox>
   );
