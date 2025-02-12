@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import MOCK_DATA from "../data/mokadata";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 
 const PokemonList = ({ myPokemon, setMyPokemon }) => {
-  const [pokemonList, setPokemonList] = useState(null);
-
-  useEffect(() => {
-    setPokemonList(MOCK_DATA);
-  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+  const [pokemonList] = useState(MOCK_DATA);
 
   if (!pokemonList) return <p>Loading...</p>; // 데이터 로딩 중 표시
 
