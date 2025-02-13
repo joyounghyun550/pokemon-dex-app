@@ -1,141 +1,53 @@
-import styled from "styled-components";
-import { useContext } from "react";
-import { PokemonContext } from "../context/PokemonContext";
+import useSearchToRender from "../hooks/useFilteredPokemons";
+import usePokeballCount from "../hooks/usePokeballCount";
+import useHandleRemovePokemon from "../hooks/useRemoveAlert";
+import { StDiv, StyledButton } from "../styles/StyledComponents";
+import { Link } from "react-router-dom";
+import pokeBall from "../assets/image/pokeball-13iwdk7Y.png";
 
 const Dashboard = () => {
-  const { myPokemon, setMyPokemon } = useContext(PokemonContext);
-  // 남은 포켓볼 슬롯을 렌더링하는 함수
-  const renderPokeballs = () => {
-    const pokeballCount = 6 - myPokemon.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 나머지 개수만큼 포켓볼을 추가
-    const pokeballs = [];
-    const test = 0;
-
-    // 남은 슬롯만큼 포켓볼 이미지를 배열에 추가
-    for (let i = 0; i < pokeballCount; i++) {
-      pokeballs.push(
-        <div className="BallDiv" key={i}>
-          {/* 포켓볼 이미지 출력 */}
-          <img src="/src/assets/pokeball-13iwdk7Y.png" alt="포켓볼" />
-        </div>
-      );
-    }
-    return pokeballs; // 포켓볼 div 배열 반환
-  };
-
-  // 포켓몬 삭제 기능
-  const removePokemon = (id) => {
-    const updateMyPokemon = myPokemon.filter((item) => {
-      return item.id !== id;
-    });
-    setMyPokemon(updateMyPokemon);
-  };
+  // 필터링된 포켓몬 목록을 가져옵니다.
+  const filteredPokemons = useSearchToRender();
+  // 포켓몬 삭제를 위한 훅을 가져옵니다.
+  const handleRemovePokemon = useHandleRemovePokemon();
+  // 포켓볼 렌더링 훅을 가져옵니다.
+  const pokeballCount = usePokeballCount();
 
   return (
     <StDiv>
-      <h2>나만의 포켓몬</h2>
-      <h3>test</h3>
-      {/* 선택한 포켓몬 목록 */}
-      <div id="pokemon-dash-list">
-        {/* myPokemon 배열을 순회하며 각 포켓몬을 표시 */}
-        {myPokemon.map((item) => (
-          <div className="MypokemonDiv" key={item.id}>
-            <img src={item.img_url} alt={item.korean_name} />
+      {/* 보유 포켓몬 목록을 렌더링하는 영역 */}
+      {/* 필터링된 포켓몬 목록을 순회하면서 각 포켓몬의 정보를 표시 */}
+      {filteredPokemons.map((item) => (
+        <div className="MypokemonDiv" key={item.id}>
+          {/* 포켓몬 상세 페이지로 이동할 수 있는 링크 */}
+          <Link to={`/Detail?id=${item.id}`}>
             <div>
-              <p className="pokemonName">{item.korean_name}</p>
-              <p className="pokemonNo">No. {"00" + item.id}</p>
+              <img src={item.img_url} alt={item.korean_name} />
+              <div>
+                <p className="pokemonName">{item.korean_name}</p>
+                <p className="pokemonNo">No. {"00" + item.id}</p>
+              </div>
             </div>
-            <button onClick={() => removePokemon(item.id)}>삭제</button>
-          </div>
-        ))}
-
-        {/* 남은 슬롯을 포켓볼 이미지로 채움 */}
-        {renderPokeballs()}
-      </div>
+          </Link>
+          {/* 포켓몬 삭제 버튼 */}
+          <StyledButton
+            onClick={() => {
+              handleRemovePokemon(item.id); // 삭제 버튼 클릭 시 포켓몬을 삭제
+            }}
+          >
+            방생
+          </StyledButton>
+        </div>
+      ))}
+      {/* 남은 포켓볼 슬롯을 렌더링 */}
+      {Array.from({ length: pokeballCount }).map((_, i) => (
+        <div className="BallDiv" key={i}>
+          <img src={pokeBall} alt="포켓볼" />
+          <span>몬스터 볼</span>
+        </div>
+      ))}
     </StDiv>
   );
 };
-
-const StDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: rgb(248, 248, 248);
-  margin-bottom: 20px;
-  border-radius: 10px;
-
-  h2 {
-    margin-bottom: 20px;
-    color: rgb(255, 0, 0);
-  }
-
-  #pokemon-dash-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
-    justify-items: center;
-
-    .MypokemonDiv {
-      border: 1px solid rgb(221, 221, 221);
-      background-color: rgb(255, 255, 255);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
-      text-align: center;
-      padding: 10px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
-
-      div {
-        margin-top: 10px;
-      }
-
-      .pokemonName {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0px;
-        color: black;
-      }
-
-      .pokemonNo {
-        font-size: 12px;
-        color: rgb(102, 102, 102);
-      }
-
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        border: none;
-        background-color: rgb(255, 0, 0);
-        color: rgb(255, 255, 255);
-        border-radius: 5px;
-      }
-    }
-  }
-
-  .BallDiv {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(255, 255, 255);
-    border: 2px dashed rgb(204, 204, 204);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-
-    img {
-      width: 50px;
-      height: 50px;
-    }
-  }
-`;
 
 export default Dashboard;
