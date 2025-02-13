@@ -8,6 +8,7 @@ const Dashboard = () => {
   const renderPokeballs = () => {
     const pokeballCount = 6 - myPokemon.length; // 최대 6개의 슬롯에서 현재 myPokemon 개수를 뺀 나머지 개수만큼 포켓볼을 추가
     const pokeballs = [];
+    const test = 0;
 
     // 남은 슬롯만큼 포켓볼 이미지를 배열에 추가
     for (let i = 0; i < pokeballCount; i++) {
@@ -32,7 +33,7 @@ const Dashboard = () => {
   return (
     <StDiv>
       <h2>나만의 포켓몬</h2>
-
+      <h3>test</h3>
       {/* 선택한 포켓몬 목록 */}
       <div id="pokemon-dash-list">
         {/* myPokemon 배열을 순회하며 각 포켓몬을 표시 */}
