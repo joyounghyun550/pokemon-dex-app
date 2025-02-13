@@ -17,7 +17,6 @@ const Dashboard = () => {
     <StDiv>
       {/* 보유 포켓몬 목록을 렌더링하는 영역 */}
       {/* 필터링된 포켓몬 목록을 순회하면서 각 포켓몬의 정보를 표시 */}
-      <h1>test</h1>
 
       {filteredPokemons.map((item) => (
         <div className="MypokemonDiv" key={item.id}>
